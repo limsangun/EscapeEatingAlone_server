@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/orange"
+    tools:context=".SignupActivity">
+
+
+    <EditText
+        android:id="@+id/signupActivity_edittext_email"
+        android:layout_width="264dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="208dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint="이메일(Email)"
+        android:inputType="textEmailAddress"
+        android:outlineAmbientShadowColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/signupActivity_edittext_name"
+        android:layout_width="264dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="2dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint="이름(Name)"
+        android:inputType="text"
+        android:outlineAmbientShadowColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_email" />
+
+    <EditText
+        android:id="@+id/signupActivity_edittext_password"
+        android:layout_width="264dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="2dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint="비밀번호(Password)"
+        android:inputType="textPassword"
+        android:outlineAmbientShadowColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_name" />
+
+    <EditText
+        android:id="@+id/signupActivity_edittext_password2"
+        android:layout_width="264dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="2dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint="비밀번호 확인(Check Password)"
+        android:inputType="textPassword"
+        android:outlineAmbientShadowColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_password" />
+
+    <Button
+        android:id="@+id/signupActivity_button_signup"
+        android:layout_width="270dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="28dp"
+        android:background="#ffffff"
+        android:text="회원가입"
+        android:textColor="@color/orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_password2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
