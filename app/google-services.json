@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "984961366234",
+    "project_id": "escape-eating-alone",
+    "storage_bucket": "escape-eating-alone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984961366234:android:5ec87a4884222ec4ec0de3",
+        "android_client_info": {
+          "package_name": "com.wpjm.escapeeatingalone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984961366234-ba9jiim4v36dl13ot4ekjid8ija90tcb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1Kc2LCWj-xsSoLRMXLsADLgbfQ58wG58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984961366234-ba9jiim4v36dl13ot4ekjid8ija90tcb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
