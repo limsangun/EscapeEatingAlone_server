@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/orange"
-    tools:context=".SignupActivity">
+    tools:context=".Activity.SignupActivity">
 
 
     <EditText
@@ -24,25 +24,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/signupActivity_edittext_name"
-        android:layout_width="264dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="2dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:hint="이름(Name)"
-        android:inputType="text"
-        android:outlineAmbientShadowColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_email" />
-
-    <EditText
         android:id="@+id/signupActivity_edittext_password"
         android:layout_width="264dp"
         android:layout_height="48dp"
-        android:layout_marginTop="2dp"
         android:background="#ffffff"
         android:ems="10"
         android:hint="비밀번호(Password)"
@@ -51,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_name" />
+        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_email" />
 
     <EditText
         android:id="@+id/signupActivity_edittext_password2"

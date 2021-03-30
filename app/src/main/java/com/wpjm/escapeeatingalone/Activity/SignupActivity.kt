@@ -1,4 +1,4 @@
-package com.wpjm.escapeeatingalone
+package com.wpjm.escapeeatingalone.Activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.wpjm.escapeeatingalone.Model.UserModel
+import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivitySignupBinding
 
 class SignupActivity : AppCompatActivity() {
@@ -28,7 +28,7 @@ class SignupActivity : AppCompatActivity() {
 
         // 회원가입 버튼 누룰 때
         binding.signupActivityButtonSignup.setOnClickListener(View.OnClickListener {
-            if (binding.signupActivityEdittextEmail.length() > 0 && binding.signupActivityEdittextPassword.length() > 0 && binding.signupActivityEdittextPassword2.length() > 0 && binding.signupActivityEdittextName.length() > 0) {
+            if (binding.signupActivityEdittextEmail.length() > 0 && binding.signupActivityEdittextPassword.length() > 0 && binding.signupActivityEdittextPassword2.length() > 0) {
                 if(binding.signupActivityEdittextPassword.getText().toString().equals(binding.signupActivityEdittextPassword2.getText().toString())){
                     FirebaseAuth.getInstance()
                         .createUserWithEmailAndPassword(
@@ -38,10 +38,8 @@ class SignupActivity : AppCompatActivity() {
                         .addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
                             @NonNull
                             if (task.isSuccessful) { // 회원가입 성공
-                                var userModel:UserModel? = null
+//                                var userModel:UserModel? = null
                                 val user = auth.currentUser
-
-//                                userModel.userName = binding.signupActivityEdittextName.getText().toString()
 
                                 val intent = Intent(this, LoginActivity::class.java)
                                 Toast.makeText(this, "회원가입 성공하였습니다.", Toast.LENGTH_SHORT).show()
