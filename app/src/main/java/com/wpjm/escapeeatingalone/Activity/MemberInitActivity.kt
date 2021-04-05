@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.wpjm.escapeeatingalone.Model.MemberInfo
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityMemberInitBinding
 
@@ -40,7 +41,8 @@ class MemberInitActivity: AppCompatActivity() {
                 var memberInfo = MemberInfo(binding.memberinitActivityEdittextName.getText().toString(),
                                             binding.memberinitActivityEdittextPhonenumber.getText().toString(),
                                             binding.memberinitActivityEdittextBirthday.getText().toString(),
-                                            binding.memberinitActivityEdittextAddress.getText().toString() )
+                                            binding.memberinitActivityEdittextAddress.getText().toString()
+                )
 
                 if (user != null) { // Firebase Cloud Store에 user 정보가 없으면
                     db.collection("users").document(user!!.getUid()).set(memberInfo) // Firebase Cloud Store 삽입

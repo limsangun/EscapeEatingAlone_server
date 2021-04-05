@@ -1,8 +1,10 @@
 package com.wpjm.escapeeatingalone.Activity
 
-import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +13,8 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityMainBinding
-import com.wpjm.escapeeatingalone.Activity.ChattingActivity as ChattingActivity
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,9 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         // 기본 시작 주기
         if (user == null) { // 파이어베이스 유저가 존재하지 않으면
-            val intent = Intent(this, SignupActivity::class.java)
-            startActivity(intent)
-            finish()
+            gotoActivity(SignupActivity::class.java)
         } else { // 파이어베이스 유저가 존재하면
             val docRef: DocumentReference = db.collection("users").document(user.getUid())
             docRef.get().addOnCompleteListener { task ->
@@ -41,11 +42,8 @@ class MainActivity : AppCompatActivity() {
                             // cloud firestore로부터 이름 읽어오기
                             Log.e("name", "${document.data}")
                             binding.mainActivityTextviewName.setText(document.id)
-
                         } else { // 개인정보가 존재하지 않으면
-                            val intent1 = Intent(this, MemberInitActivity::class.java)
-                            startActivity(intent1)
-                            finish()
+                            gotoActivity(MemberInitActivity::class.java)
                         }
                     }
                 } else {
@@ -58,26 +56,56 @@ class MainActivity : AppCompatActivity() {
         // 로그아웃 버튼 눌렀을 때
         binding.mainActivityButtonLogout.setOnClickListener(View.OnClickListener {
             FirebaseAuth.getInstance().signOut()
-            val intent2 = Intent(this, LoginActivity::class.java)
-            startActivity(intent2)
-            finish()
+            gotoActivity(LoginActivity::class.java)
+        })
+
+        // 메뉴로 찾기 버튼 눌렀을 때
+        binding.mainActivityButtonFindmenu.setOnClickListener(View.OnClickListener {
+            gotoActivity(ChatActivity::class.java)
+        })
+
+        // 가게명으로 찾기 눌렀을 때
+        binding.mainActivityButtonFindname.setOnClickListener(View.OnClickListener {
+            gotoActivity(MapNaverActivity::class.java)
+        })
+
+        // 자유게시판 눌렀을 때
+        binding.mainActivityButtonFreeboard.setOnClickListener(View.OnClickListener {
+            gotoActivity(BoardActivity::class.java)
         })
 
         // 채팅하기 버튼 눌렀을 때
         binding.mainActivityButtonChatting.setOnClickListener(View.OnClickListener {
-            var intent4 = Intent(this, ChattingActivity::class.java)
-            startActivity(intent4)
-            finish()
+            gotoActivity(ChatActivity::class.java)
         })
 
     }
 
-    // Intent
-    private fun gotoActivity(c:Activity) {
-        var intent3 = Intent(this, c::class.java)
-        startActivity(intent3)
+    // Intent function
+    private fun gotoActivity(c: Class<*>) {
+        var intent9 = Intent(this, c)
+        startActivity(intent9)
         finish()
     }
-
+    
+    // 해쉬값 구하기
+    private fun getHashKey() {
+        var packageInfo: PackageInfo? = null
+        try {
+            packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        if (packageInfo == null) Log.e("KeyHash", "KeyHash:null")
+        for (signature in packageInfo!!.signatures) {
+            try {
+                val md: MessageDigest = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            } catch (e: NoSuchAlgorithmException) {
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=$signature", e)
+            }
+        }
+    }
 
 }
