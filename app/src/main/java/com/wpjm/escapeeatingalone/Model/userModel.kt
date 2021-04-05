@@ -1,5 +1,5 @@
 package com.wpjm.escapeeatingalone.Model
 
-open class UserModel {
+class userModel {
     lateinit var userName: String
 }

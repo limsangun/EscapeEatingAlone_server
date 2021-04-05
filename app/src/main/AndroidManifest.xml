@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wpjm.escapeeatingalone">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,7 +16,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Activity.ChattingActivity"></activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="e04882312b2da80c5328ff0d4867b9ab" />
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="yidtar3sb3" />
+
+        <activity android:name=".Activity.MapNaverActivity"></activity>
+
+        <activity android:name=".Activity.ChatActivity" />
+        <activity android:name=".Activity.BoardDetailActivity" />
+        <activity
+            android:name=".Activity.BoardActivity"
+            android:label="@string/title_activity_board"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".Activity.MapKakaoActivity" />
+        <activity android:name=".Activity.MessageActivity" />
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.SignupActivity" />
         <activity android:name=".Activity.MemberInitActivity" />
