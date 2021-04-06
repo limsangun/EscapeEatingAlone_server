@@ -19,6 +19,7 @@ class BoardActivity : AppCompatActivity() {
         mBinding = ActivityBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         val boardList =  arrayListOf(
             BoardModel(R.drawable.android, "고기먹고싶다", "이번주 토요일 아무데나 가실분", "04.02"),
             BoardModel(R.drawable.android, "짬뽕먹고싶다", "배고파 배고파 배고파", "04.02"),
