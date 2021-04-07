@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -78,8 +79,8 @@ class MainActivity : AppCompatActivity() {
         binding.mainActivityButtonChatting.setOnClickListener(View.OnClickListener {
             gotoActivity(ChatActivity::class.java)
         })
-
     }
+
 
     // Intent function
     private fun gotoActivity(c: Class<*>) {

@@ -24,14 +24,11 @@
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="yidtar3sb3" />
 
-        <activity android:name=".Activity.MapNaverActivity"></activity>
-
+        <activity android:name=".Activity.BoardMake"></activity>
+        <activity android:name=".Activity.MapNaverActivity" />
         <activity android:name=".Activity.ChatActivity" />
         <activity android:name=".Activity.BoardDetailActivity" />
-        <activity
-            android:name=".Activity.BoardActivity"
-            android:label="@string/title_activity_board"
-            android:theme="@style/NoActionBar" />
+        <activity android:name=".Activity.BoardActivity"/>
         <activity android:name=".Activity.MapKakaoActivity" />
         <activity android:name=".Activity.MessageActivity" />
         <activity android:name=".Activity.MainActivity" />

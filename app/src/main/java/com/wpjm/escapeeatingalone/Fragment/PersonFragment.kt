@@ -35,19 +35,6 @@ class PersonFragment : Fragment() {
         val adapter = FragmentPersonAdapter(list)
         reyclerView.layoutManager = LinearLayoutManager(activity)
         reyclerView.adapter = adapter
-        //        val personList = arrayListOf(
-//                PersonModel(R.drawable.android, "홍드로", "3개"),
-//                PersonModel(R.drawable.android, "김드로", "2개"),
-//                PersonModel(R.drawable.android, "임드로", "4개"),
-//                PersonModel(R.drawable.android, "윤드로", "3개"),
-//                PersonModel(R.drawable.android, "곽드로", "2개"),
-//                PersonModel(R.drawable.android, "제드로", "1개")
-//        )
-//
-//        binding.fragmentpersonRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//        binding.fragmentpersonRecyclerView.setHasFixedSize(true)
-//
-//        binding.fragmentpersonRecyclerView.adapter = FragmentPersonAdapter(personList)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
