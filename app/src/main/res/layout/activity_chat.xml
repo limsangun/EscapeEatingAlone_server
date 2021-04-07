@@ -11,28 +11,42 @@
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
-        android:layout_height="590dp"
+        android:layout_height="530dp"
         android:layout_margin="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:background="#E1DFDF"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_fragment1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="프래그먼트1" />
+            android:layout_margin="16dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/instructor"
+            android:scaleType="fitXY"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btn_fragment2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="프래그먼트2" />
+            android:layout_margin="16dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/chats"
+            android:scaleType="fitXY"
+            android:textColor="#000000"
+            android:textStyle="bold" />
     </LinearLayout>
 
 

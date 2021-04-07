@@ -3,6 +3,7 @@ package com.wpjm.escapeeatingalone.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.wpjm.escapeeatingalone.ChatFragment
+import com.wpjm.escapeeatingalone.ChatlistFragment
 import com.wpjm.escapeeatingalone.PersonFragment
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityChatBinding
@@ -34,7 +35,7 @@ class ChatActivity : AppCompatActivity() {
                 ft.replace(R.id.main_frame, PersonFragment()).commit()
             }
             1 -> {
-                ft.replace(R.id.main_frame, ChatFragment()).commit()
+                ft.replace(R.id.main_frame, ChatlistFragment()).commit()
             }
         }
     }
