@@ -33,6 +33,8 @@ class MenuActivity : AppCompatActivity() {
         binding.rvMenu.setHasFixedSize(true)
         binding.rvMenu.adapter=MenuAdapter(menuList)
     }
+
+
     override fun onBackPressed() {
 
 
