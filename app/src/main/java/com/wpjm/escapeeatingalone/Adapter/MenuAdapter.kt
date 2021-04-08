@@ -27,6 +27,8 @@ class MenuAdapter(val menuList:ArrayList<Menu>) :RecyclerView.Adapter<MenuAdapte
         holder.image.setImageResource(menuList.get(position).image)
         holder.name.text=menuList.get(position).name
 
+
+
     }
 
     override fun getItemCount(): Int {
