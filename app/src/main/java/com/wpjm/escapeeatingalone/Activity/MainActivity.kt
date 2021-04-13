@@ -1,22 +1,16 @@
 package com.wpjm.escapeeatingalone.Activity
 
-import android.content.ClipData
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-<<<<<<< HEAD
-import android.view.Menu
-=======
 import android.view.MenuItem
->>>>>>> 94fde772528f535e163325433cd6ec6094701fef
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,10 +19,7 @@ import com.wpjm.escapeeatingalone.databinding.ActivityMainBinding
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.firestore.Source
-import com.wpjm.escapeeatingalone.Model.MemberInfo
-import com.wpjm.escapeeatingalone.Model.Menu
-import java.lang.reflect.Member
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var mBinding: ActivityMainBinding? = null
@@ -102,6 +93,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.mainActivityButtonChatting.setOnClickListener(View.OnClickListener {
             gotoActivity(ChatActivity::class.java)
         })
+
     }
 
 

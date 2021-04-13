@@ -3,19 +3,22 @@ package com.wpjm.escapeeatingalone.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.widget.LinearLayout
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.wpjm.escapeeatingalone.Adapter.BoardAdapter
 import com.wpjm.escapeeatingalone.Model.BoardModel
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityBoardBinding
+import java.util.*
 
 class BoardActivity : AppCompatActivity() {
     private var mBinding: ActivityBoardBinding? = null
     private val binding get() = mBinding!!
+    private var db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,40 +27,40 @@ class BoardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val boardList =  arrayListOf(
-            BoardModel(R.drawable.android, "고기먹고싶다", "이번주 토요일 아무데나 가실분", "04.02"),
-            BoardModel(R.drawable.android, "짬뽕먹고싶다", "배고파 배고파 배고파", "04.02"),
-            BoardModel(R.drawable.android, "떡볶이먹고싶다", "죽고싶지만 떡복이는 먹고 싶어", "04.02"),
-            BoardModel(R.drawable.android, "볶음밥먹고싶다", "배고파", "04.02"),
-            BoardModel(R.drawable.android, "샤브샤브먹고싶다", "중곡동 잘하는 곳 아시는 분", "04.02"),
-            BoardModel(R.drawable.android, "포도먹고싶다", "제철임?", "04.02"),
-            BoardModel(R.drawable.android, "대게먹고싶다", "대게 대게", "04.02"),
-            BoardModel(R.drawable.android, "순대먹고싶다", "배고파 배고파 배고파", "04.02"),
-            BoardModel(R.drawable.android, "빵먹고싶다", "배고파", "04.02"),
-            BoardModel(R.drawable.android, "크루와상먹고싶다", "배고파 배고파", "04.02"),
-            BoardModel(R.drawable.android, "초밥먹고싶다", "배고파", "04.02"),
-            BoardModel(R.drawable.android, "불량식품먹고싶다", "배고파 배고파", "04.02"),
-            BoardModel(R.drawable.android, "만두먹고싶다", "배고파", "04.02"),
-            BoardModel(R.drawable.android, "에이드먹고싶다", "배고파 배고파", "04.02")
-        )
+        // fireStore에서 읽어오기
+        var boardList = arrayListOf<BoardModel>()
+        var adapter = BoardAdapter(boardList)
+
+        db.collection("board")
+             .get()
+                .addOnSuccessListener { result ->
+                    boardList.clear()
+                    for (document in result) {
+                        val item = BoardModel(document["name"] as String, document["title"] as String, document["contents"] as String, document["date"] as String)
+                        boardList.add(item)
+                    }
+                    adapter.notifyDataSetChanged() // 리사이클러뷰 갱신
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("no data", "$exception")
+                }
+
 
         binding.boardActivityRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.boardActivityRecyclerView.setHasFixedSize(true)
+        binding.boardActivityRecyclerView.adapter = adapter
 
-        binding.boardActivityRecyclerView.adapter = BoardAdapter(boardList)
+        // 추가 버튼 눌렀을 때
+        binding.boardActivityButtonAdd.setOnClickListener(View.OnClickListener {
+            gotoActivity(BoardMake::class.java)
+        })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        var inflater = menuInflater
-        inflater.inflate(R.menu.button_ok_menu, menu)
-        return true
+    // Intent function
+    private fun gotoActivity(c: Class<*>) {
+        var intent = Intent(this, c)
+        startActivity(intent)
+
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item){
-
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
 }
