@@ -7,10 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wpjm.escapeeatingalone.Model.BoardDetailModel
+import com.wpjm.escapeeatingalone.Model.CommentModel
 import com.wpjm.escapeeatingalone.R
 
 
-class BoardDetailAdapter(val BoardCommentList:ArrayList<BoardDetailModel>) : RecyclerView.Adapter<BoardDetailAdapter.CustomViewHolder>() {
+class BoardDetailAdapter(val BoardCommentList: ArrayList<CommentModel>) : RecyclerView.Adapter<BoardDetailAdapter.CustomViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardDetailAdapter.CustomViewHolder {
         // item을 붙이기
@@ -23,10 +24,10 @@ class BoardDetailAdapter(val BoardCommentList:ArrayList<BoardDetailModel>) : Rec
     }
 
     override fun onBindViewHolder(holder: BoardDetailAdapter.CustomViewHolder, position: Int) {
-        holder.profile.setImageResource(BoardCommentList.get(position).profile)
+    //    holder.profile.setImageResource(BoardCommentList.get(position).profile)
         holder.name.text = BoardCommentList.get(position).name
         holder.contents.text = BoardCommentList.get(position).contents
-        holder.date.text = BoardCommentList.get(position).date
+        holder.date.text = BoardCommentList.get(position).timestamp
     }
 
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
