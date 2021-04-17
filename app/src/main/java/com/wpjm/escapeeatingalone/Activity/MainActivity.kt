@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val document = task.result
                     if (document != null){
                         if (document!!.exists()) { // 개인정보가 존재하면
-
                             // cloud firestore로부터 이름 읽어오기
                             Log.e("name", "${document.data}")
                           //  binding.mainActivityTextviewName.setText(document.id)

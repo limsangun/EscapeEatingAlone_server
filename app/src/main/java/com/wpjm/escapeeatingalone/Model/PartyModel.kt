@@ -1,3 +1,3 @@
 package com.wpjm.escapeeatingalone.Model
 
-class PartyModel (val name: String, val state: String)
+class PartyModel (val date:String, val title: String, val count: String)
