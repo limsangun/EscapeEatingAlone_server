@@ -3,6 +3,7 @@ package com.wpjm.escapeeatingalone
 import android.content.Context
 import android.os.Bundle
 import android.provider.Contacts
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ class PersonFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         list.add(PersonModel(R.drawable.android, "김드로", "3개"))
         list.add(PersonModel(R.drawable.android, "나드로", "3개"))
         list.add(PersonModel(R.drawable.android, "박드로", "3개"))

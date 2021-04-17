@@ -5,15 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wpjm.escapeeatingalone.Adapter.BoardAdapter
 import com.wpjm.escapeeatingalone.Model.BoardModel
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityBoardBinding
-import java.util.*
+
 
 class BoardActivity : AppCompatActivity() {
     private var mBinding: ActivityBoardBinding? = null
@@ -60,7 +58,6 @@ class BoardActivity : AppCompatActivity() {
     private fun gotoActivity(c: Class<*>) {
         var intent = Intent(this, c)
         startActivity(intent)
-
     }
 
 }
