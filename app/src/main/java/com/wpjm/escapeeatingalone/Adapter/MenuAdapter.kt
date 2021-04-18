@@ -32,6 +32,7 @@ class MenuAdapter(val menuList:ArrayList<Menu>) :RecyclerView.Adapter<MenuAdapte
         // 리스트 눌렀을 때
         holder.itemView.setOnClickListener {
             var intent = Intent(holder.itemView?.context, MenuDetailActivity::class.java)
+            intent.putExtra("MenuType", "${holder.name.text}")
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
     }
