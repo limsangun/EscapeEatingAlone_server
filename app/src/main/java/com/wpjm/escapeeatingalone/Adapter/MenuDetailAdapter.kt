@@ -31,6 +31,7 @@ class MenuDetailAdapter(val menuDetailList:ArrayList<MenuDetailModel>) :Recycler
         // 리스트 눌렀을 때
         holder.itemView.setOnClickListener {
             var intent = Intent(holder.itemView?.context, PartyActivity::class.java)
+            intent.putExtra("storeName", "${holder.name.text}")
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
     }

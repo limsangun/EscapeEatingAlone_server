@@ -18,6 +18,9 @@ class PartyActivity : AppCompatActivity() {
         mBinding = ActivityPartyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var storeName = intent.getStringExtra("storeName")
+        binding.partyActivityTextViewName.setText(storeName)
+
         var partyList = arrayListOf(
             PartyModel("4/17", "빨리갈 친구들 구함", "1/4"),
             PartyModel("4/17", "빨리갈 친구들 구함", "1/4"),
