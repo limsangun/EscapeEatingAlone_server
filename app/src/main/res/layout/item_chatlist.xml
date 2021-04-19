@@ -27,7 +27,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_baseline_local_dining_24"
+            android:src="@drawable/user"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -62,7 +62,7 @@
             app:layout_constraintTop_toTopOf="@+id/fragmentchatlist_textview_name" />
 
         <TextView
-            android:id="@+id/fragmentchatlist_textview_spoonscore"
+            android:id="@+id/fragmentchatlist_textview_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

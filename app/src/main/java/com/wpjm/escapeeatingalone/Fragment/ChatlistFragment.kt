@@ -36,12 +36,13 @@ class ChatlistFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        list.add(ChatlistModel(R.drawable.user, "고기", "우프진먹 외 3명", "11/11"))
-        list.add(ChatlistModel(R.drawable.user, "일식", "3개", "11/11"))
-        list.add(ChatlistModel(R.drawable.user, "중식", "5개", "11/11"))
-        list.add(ChatlistModel(R.drawable.user, "양식", "1개", "11/11"))
-        list.add(ChatlistModel(R.drawable.user, "분식", "7개", "11/11"))
-        list.add(ChatlistModel(R.drawable.user, "십식", "2개", "11/11"))
-        adapter.notifyDataSetChanged()
+        /*
+        list.add(ChatlistModel(R.drawable.user, "원조경성삼겹살", "우진먹 외 4명", "03/11"))
+        list.add(ChatlistModel(R.drawable.user, "우쭈쭈", "우진먹 외 4명", "03/10"))
+        list.add(ChatlistModel(R.drawable.user, "의정부 부대찌개", "우진먹 외 4명", "03/09"))
+        list.add(ChatlistModel(R.drawable.user, "영진돼지국밥", "우진먹 외 2명", "03/08"))
+        list.add(ChatlistModel(R.drawable.user, "청년다방", "우진먹 외 3명", "03/08"))
+        list.add(ChatlistModel(R.drawable.user, "파스타", "우진먹 외 3명", "03/11"))
+        adapter.notifyDataSetChanged()*/
     }
 }

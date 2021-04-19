@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".Fragment.PeopleFragment"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -24,8 +25,7 @@
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="yidtar3sb3" />
 
-        <activity android:name=".Activity.MapNaverActivity"></activity>
-
+        <activity android:name=".Activity.MapNaverActivity" />
         <activity android:name=".Activity.ChatActivity" />
         <activity android:name=".Activity.BoardDetailActivity" />
         <activity
@@ -41,6 +41,7 @@
         <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

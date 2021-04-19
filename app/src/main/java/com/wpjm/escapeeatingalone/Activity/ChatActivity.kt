@@ -2,7 +2,6 @@ package com.wpjm.escapeeatingalone.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.wpjm.escapeeatingalone.ChatFragment
 import com.wpjm.escapeeatingalone.ChatlistFragment
 import com.wpjm.escapeeatingalone.PersonFragment
 import com.wpjm.escapeeatingalone.R
