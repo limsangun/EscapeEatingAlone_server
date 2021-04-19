@@ -11,8 +11,9 @@
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
-        android:layout_height="530dp"
-        android:layout_margin="16dp" />
+        android:layout_height="530dp">
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

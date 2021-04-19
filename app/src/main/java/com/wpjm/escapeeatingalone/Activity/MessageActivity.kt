@@ -8,11 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import com.wpjm.escapeeatingalone.Model.ChatModel
+import com.wpjm.escapeeatingalone.Model.MessageModel
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityMessageBinding
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MessageActivity : AppCompatActivity() {
     private var mBinding: ActivityMessageBinding? = null
@@ -47,14 +46,14 @@ class MessageActivity : AppCompatActivity() {
         binding.messageEdittextSend.setOnClickListener(View.OnClickListener {
             var uid = user?.getUid() // 채팅을 요구하는 아이디
             var destinationUid = user?.getUid() // 채팅을 요구하는 아이디
-            var chatModel: ChatModel = ChatModel()
-            chatModel.users.put(uid!!, true)
-            chatModel.users.put("FnwZg4OeNYNsuQ8bChfniWl32y23", true)   //(destinationUid!!, true)
+            var messageModel: MessageModel = MessageModel()
+            messageModel.users.put(uid!!, true)
+            messageModel.users.put("FnwZg4OeNYNsuQ8bChfniWl32y23", true)   //(destinationUid!!, true)
 
             db.collection("chatrooms").document(user!!.getUid())
-                .set(chatModel) // Firebase Cloud Store 삽입
+                .set(messageModel) // Firebase Cloud Store 삽입
                 .addOnSuccessListener { // 성공할 때
-                    var comment : ChatModel.Comment = ChatModel.Comment()
+                    var comment : MessageModel.Comment = MessageModel.Comment()
                     comment.uid = uid
                     comment.message = binding.messageEdittextMessage.getText().toString()
                     FirebaseDatabase.getInstance().getReference().child("classrooms")

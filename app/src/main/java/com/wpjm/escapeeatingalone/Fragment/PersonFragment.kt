@@ -1,7 +1,8 @@
 package com.wpjm.escapeeatingalone
 
 import android.os.Bundle
-import android.util.Log
+
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.wpjm.escapeeatingalone.Activity.MemberInitActivity
-import com.wpjm.escapeeatingalone.Activity.SignupActivity
 import com.wpjm.escapeeatingalone.Adapter.FragmentPersonAdapter
 import com.wpjm.escapeeatingalone.Model.PersonModel
 import com.wpjm.escapeeatingalone.databinding.FragmentPersonBinding
-import org.w3c.dom.Text
 
 class PersonFragment : Fragment() {
     private var mBinding: FragmentPersonBinding? = null
@@ -54,14 +49,10 @@ class PersonFragment : Fragment() {
         val adapter = FragmentPersonAdapter(list)
         reyclerView.layoutManager = LinearLayoutManager(activity)
         reyclerView.adapter = adapter
-
-
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
     }
 }

@@ -1,6 +1,8 @@
 package com.wpjm.escapeeatingalone.Activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,7 +10,7 @@ import com.wpjm.escapeeatingalone.Model.Menu
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityMenulistBinding
 
-class MenuActivity : AppCompatActivity() {
+class MenuActivity() : AppCompatActivity() {
     private var mBinding: ActivityMenulistBinding?=null
     private val binding get() = mBinding!!
 
@@ -33,9 +35,9 @@ class MenuActivity : AppCompatActivity() {
         binding.rvMenu.setHasFixedSize(true)
         binding.rvMenu.adapter=MenuAdapter(menuList)
     }
+
+
     override fun onBackPressed() {
-
-
         super.onBackPressed()
     }
 }

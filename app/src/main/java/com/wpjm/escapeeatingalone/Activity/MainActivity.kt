@@ -1,6 +1,5 @@
 package com.wpjm.escapeeatingalone.Activity
 
-import android.content.ClipData
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -9,10 +8,9 @@ import android.util.Base64
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,10 +19,7 @@ import com.wpjm.escapeeatingalone.databinding.ActivityMainBinding
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.firestore.Source
-import com.wpjm.escapeeatingalone.Model.MemberInfo
-import com.wpjm.escapeeatingalone.Model.Menu
-import java.lang.reflect.Member
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var mBinding: ActivityMainBinding? = null
@@ -58,7 +53,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val document = task.result
                     if (document != null){
                         if (document!!.exists()) { // 개인정보가 존재하면
-
                             // cloud firestore로부터 이름 읽어오기
                             Log.e("name", "${document.data}")
                           //  binding.mainActivityTextviewName.setText(document.id)
@@ -100,6 +94,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
 
     }
+
 
     // Intent function
     private fun gotoActivity(c: Class<*>) {
