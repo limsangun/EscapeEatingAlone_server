@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.get
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,13 +40,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
 
         var name=""
-        db.collection("users").document(user!!.getUid()).get()
-            .addOnSuccessListener { result ->
-                    name=result["name"] as String
-                    binding.naviView.menu.findItem(R.id.profile).setTitle(name)
+        var imageUrl=""
 
-
-            }
 
         // 기본 시작 주기
         if (user == null) { // 파이어베이스 유저가 존재하지 않으면
@@ -58,7 +54,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val document = task.result
                     if (document != null){
                         if (document!!.exists()) { // 개인정보가 존재하면
+                            db.collection("users").document(user!!.getUid()).get()
+                                    .addOnSuccessListener { result ->
+                                        name=result["name"] as String
+                                        imageUrl=result["profileImageUrl"] as String
+                                        binding.naviView.menu.findItem(R.id.profile).setTitle(name)
+                                        //binding.naviView.menu.findItem(R.id.profile).
+                                        //Glide.with(this).load(imageUrl).into()
 
+                                    }
                             // cloud firestore로부터 이름 읽어오기
                             Log.e("name", "${document.data}")
                           //  binding.mainActivityTextviewName.setText(document.id)
@@ -111,6 +115,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId){
+            R.id.profile -> gotoActivity(MemberInitActivity::class.java)
             R.id.menu -> gotoActivity(MenuActivity::class.java)
             R.id.restaurant -> gotoActivity(MapNaverActivity::class.java)
             R.id.chatting -> gotoActivity(ChatActivity::class.java)
