@@ -38,8 +38,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .addOnSuccessListener { result ->
                     name=result["name"] as String
                     binding.naviView.menu.findItem(R.id.profile).setTitle(name)
-
-
             }
 
         // 기본 시작 주기

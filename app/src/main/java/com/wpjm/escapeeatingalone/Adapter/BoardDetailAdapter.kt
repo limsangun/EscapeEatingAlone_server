@@ -55,6 +55,10 @@ class BoardDetailAdapter(val BoardCommentList: ArrayList<CommentModel>) : Recycl
 
         holder.button_comment_modify.setOnClickListener {
             Log.e("modify", "수정")
+            db.collection("comments").document("${holder.commentTimeStamp.text}")
+                    .update("contents", "123")
+                    .addOnCompleteListener { Log.e("success", "success")  }
+                    .addOnFailureListener { Log.e("fail", "fail") }
         }
     }
 
