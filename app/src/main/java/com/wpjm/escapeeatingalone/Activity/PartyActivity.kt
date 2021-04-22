@@ -28,6 +28,9 @@ class PartyActivity : AppCompatActivity() {
             PartyModel("4/17", "빨리갈 친구들 구함", "1/4"),
             PartyModel("4/17", "빨리갈 친구들 구함", "1/4")
         )
+        binding.partyActivityButtonWrite.setOnClickListener {
+
+        }
 
         binding.partyActivityRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         binding.partyActivityRecyclerView.setHasFixedSize(true)

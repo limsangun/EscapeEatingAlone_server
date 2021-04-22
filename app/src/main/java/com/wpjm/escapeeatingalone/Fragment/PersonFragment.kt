@@ -1,6 +1,7 @@
 package com.wpjm.escapeeatingalone
 
 import android.os.Bundle
+import android.util.Log
 
 
 import android.view.LayoutInflater
