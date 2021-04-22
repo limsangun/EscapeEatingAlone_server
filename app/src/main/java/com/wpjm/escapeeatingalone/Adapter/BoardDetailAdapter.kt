@@ -1,19 +1,31 @@
 package com.wpjm.escapeeatingalone.Adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.wpjm.escapeeatingalone.Model.BoardDetailModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.wpjm.escapeeatingalone.Model.CommentModel
 import com.wpjm.escapeeatingalone.R
 
 
-class BoardDetailAdapter(val BoardCommentList:ArrayList<BoardDetailModel>) : RecyclerView.Adapter<BoardDetailAdapter.CustomViewHolder>() {
+class BoardDetailAdapter(val BoardCommentList: ArrayList<CommentModel>) : RecyclerView.Adapter<BoardDetailAdapter.CustomViewHolder>() {
+    private var db = FirebaseFirestore.getInstance()
+    private val user = FirebaseAuth.getInstance().currentUser
+    private var userName=""
+
+    init {
+        db.collection("users").document(user!!.getUid()).get()
+                .addOnSuccessListener { result ->
+                    userName = result["name"] as String }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardDetailAdapter.CustomViewHolder {
-        // item을 붙이기
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_boardcomment, parent, false)
         return CustomViewHolder(view)
     }
@@ -23,16 +35,37 @@ class BoardDetailAdapter(val BoardCommentList:ArrayList<BoardDetailModel>) : Rec
     }
 
     override fun onBindViewHolder(holder: BoardDetailAdapter.CustomViewHolder, position: Int) {
-        holder.profile.setImageResource(BoardCommentList.get(position).profile)
+    //    holder.profile.setImageResource(BoardCommentList.get(position).profile)
         holder.name.text = BoardCommentList.get(position).name
         holder.contents.text = BoardCommentList.get(position).contents
-        holder.date.text = BoardCommentList.get(position).date
+        holder.commentTimeStamp.text = BoardCommentList.get(position).timestamp
+
+        // 자신의 댓글만 수정, 삭제 버튼 보이기
+        if(holder.name.text == userName){
+            holder.button_comment_delete.visibility = View.VISIBLE
+            holder.button_comment_modify.visibility = View.VISIBLE
+        }
+        
+        holder.button_comment_delete.setOnClickListener {
+            db.collection("comments").document("${holder.commentTimeStamp.text}")
+                .delete()
+                .addOnSuccessListener { Log.e("성공", "삭제") }
+                .addOnFailureListener { e -> Log.e("실패", "Error deleting document", e) }
+        }
+
+        holder.button_comment_modify.setOnClickListener {
+            Log.e("modify", "수정")
+        }
     }
 
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val profile =  itemView.findViewById<ImageView>(R.id.boardComment_image_profile) // 이미지
         val name = itemView.findViewById<TextView>(R.id.boardComment_textview_name) // 이름
         val contents = itemView.findViewById<TextView>(R.id.boardComment_textview_contents) // 내용
-        val date = itemView.findViewById<TextView>(R.id.boardComment_textview_date) // 날짜
+        val commentTimeStamp = itemView.findViewById<TextView>(R.id.boardComment_textview_timeStamp) // 날짜
+        var button_comment_delete = itemView.findViewById<Button>(R.id.boardComment_button_delete)
+        var button_comment_modify = itemView.findViewById<Button>(R.id.boardComment_button_modify)
     }
+
+
 }

@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PersonFragment">
+    tools:context=".ChatlistFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragmentchat_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/fragmentchat_textvew_chat"
@@ -15,7 +20,6 @@
         android:layout_marginTop="354dp"
         android:layout_marginEnd="181dp"
         android:layout_marginRight="181dp"
-        android:text="채팅"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -1,7 +1,6 @@
 package com.wpjm.escapeeatingalone.Adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,14 +18,7 @@ class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardAdapter.CustomViewHolder {
         // item을 붙이기
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_board, parent, false)
-        return CustomViewHolder(view).apply {
-            itemView.setOnClickListener {
-                View.OnClickListener {
-                    var currentPosition: Int = adapterPosition
-                    val currentBoard: BoardModel = BoardList.get(currentPosition)
-                }
-            }
-        }
+        return CustomViewHolder(view)
     }
 
     override fun getItemCount(): Int {
