@@ -3,7 +3,6 @@ package com.wpjm.escapeeatingalone.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -34,9 +33,6 @@ class BoardMake : AppCompatActivity() {
                 .addOnSuccessListener { result ->
                     name=result["name"] as String
                 }
-
-        var title = binding.boardMakeEdittextTitle.getText().toString()
-        var contents = binding.boardMakeEdittextContents.getText().toString()
 
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")
