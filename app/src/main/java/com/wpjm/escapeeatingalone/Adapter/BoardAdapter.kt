@@ -8,12 +8,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.wpjm.escapeeatingalone.Activity.BoardDetailActivity
 import com.wpjm.escapeeatingalone.Model.BoardModel
 import com.wpjm.escapeeatingalone.R
 
 
 class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<BoardAdapter.CustomViewHolder>() {
+    private var db = FirebaseFirestore.getInstance()
+    private val user = FirebaseAuth.getInstance().currentUser
+    private var userName=""
+
+    init {
+        db.collection("users").document(user!!.getUid()).get()
+                .addOnSuccessListener { result ->
+                    userName = result["name"] as String }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardAdapter.CustomViewHolder {
         // item을 붙이기
@@ -27,6 +38,7 @@ class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: BoardAdapter.CustomViewHolder, position: Int) {
         holder.profile.setImageResource(BoardList.get(position).profile)
+        var writerName = BoardList.get(position).name
         holder.title.text = BoardList.get(position).title
         holder.contents.text = BoardList.get(position).contents
         holder.date.text = BoardList.get(position).date
@@ -35,10 +47,12 @@ class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<
         // 리스트 눌렀을 때
         holder.itemView.setOnClickListener {
             var intent = Intent(holder.itemView?.context, BoardDetailActivity::class.java)
+            intent.putExtra("writerName", "${writerName}")
             intent.putExtra("profile", "${BoardList.get(position).profile.toString()}")
             intent.putExtra("title", "${holder.title.text}")
             intent.putExtra("contents", "${holder.contents.text}")
             intent.putExtra("date", "${holder.date.text}")
+            intent.putExtra("userName", userName)
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
     }
