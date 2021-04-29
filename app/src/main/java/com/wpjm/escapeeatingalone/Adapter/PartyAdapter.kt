@@ -28,11 +28,13 @@ class PartyAdapter(val partyList:ArrayList<PartyModel>) :RecyclerView.Adapter<Pa
         holder.date.text = partyList.get(position).date
         holder.title.text = partyList.get(position).title
         holder.count.text = partyList.get(position).count
+        holder.storeName.text = partyList.get(position).storeName
     }
     
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val date = itemView.findViewById<TextView>(R.id.partyActivity_textview_date)
         val title = itemView.findViewById<TextView>(R.id.partyActivity_textview_title)
         val count = itemView.findViewById<TextView>(R.id.partyActivity_textview_count)
+        val storeName = itemView.findViewById<TextView>(R.id.partyActivity_textview_storeName)
     }
 }
