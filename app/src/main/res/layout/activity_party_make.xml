@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.PartyMake">
+    tools:context=".Activity.PartyMakeActivity">
 
     <EditText
         android:id="@+id/partyMake_write"
@@ -19,7 +19,6 @@
         android:gravity="center_vertical"
         android:hint="모집글쓰기"
         android:inputType="textPersonName"
-        android:text="모집글쓰기"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
