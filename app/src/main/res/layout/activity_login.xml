@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/orange"
+    android:background="#D4C9E8"
     tools:context=".Activity.LoginActivity">
 
     <ImageView
@@ -12,7 +12,7 @@
         android:layout_width="129dp"
         android:layout_height="127dp"
         android:layout_marginTop="124dp"
-        android:src="@drawable/ic_baseline_local_dining_24"
+        android:src="@drawable/eat_purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,7 @@
         android:layout_width="264dp"
         android:layout_height="48dp"
         android:layout_marginTop="32dp"
-        android:background="#ffffff"
+        android:background="@drawable/rounded_edittext_register_login"
         android:ems="10"
         android:hint="이메일(Email)"
         android:inputType="textEmailAddress"
@@ -36,7 +36,7 @@
         android:layout_width="264dp"
         android:layout_height="48dp"
         android:layout_marginTop="2dp"
-        android:background="#ffffff"
+        android:background="@drawable/rounded_edittext_register_login"
         android:ems="10"
         android:hint="비밀번호(Password)"
         android:inputType="textPassword"
@@ -50,8 +50,9 @@
         android:layout_width="261dp"
         android:layout_height="55dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/orange"
+        android:background="@drawable/rounded_btn"
         android:text="로그인"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginActivity_edittext_password" />
@@ -61,8 +62,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="148dp"
+        android:layout_marginBottom="170dp"
         android:background="@color/white"
         android:text="회원가입"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

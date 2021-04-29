@@ -10,11 +10,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.MetadataChanges
 import com.wpjm.escapeeatingalone.Adapter.BoardDetailAdapter
-import com.wpjm.escapeeatingalone.Model.BoardModel
 import com.wpjm.escapeeatingalone.Model.CommentModel
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityBoardDetailBinding
@@ -24,8 +21,9 @@ import java.time.format.DateTimeFormatter
 class BoardDetailActivity : AppCompatActivity() {
     private var mBinding: ActivityBoardDetailBinding? = null
     private val binding get() = mBinding!!
-    private var user = FirebaseAuth.getInstance().currentUser
+    private val user = FirebaseAuth.getInstance().currentUser
     private var db = FirebaseFirestore.getInstance()
+    private var name=""
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +33,11 @@ class BoardDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 이름
-        var name = ""
         db.collection("users").document(user!!.getUid()).get()
                 .addOnSuccessListener { result ->
                     name = result["name"] as String
                 }
-
+        
         // 현재시간
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")
@@ -48,13 +45,38 @@ class BoardDetailActivity : AppCompatActivity() {
 
         // 게시글 타임스탬프
         var boardTimeStamp = intent.getStringExtra("date")
-        
-        // 상단 게시글 정보
+
+        // 상단 board 정보
         var profileNum: Int? = intent.getStringExtra("profile")?.toInt()
 //      binding.boardDetailImageViewProfile.setImageResource(profileNum!!)
+        binding.boardDetailActivityTextviewWritername.text = intent.getStringExtra("writerName")
         binding.boardDetailTextViewTitle.text = intent.getStringExtra("title")
         binding.boardDetailTextViewContents.text = intent.getStringExtra("contents")
         binding.boardDetailTextViewDate.text = intent.getStringExtra("date")
+
+        // 수정 삭제 보기
+        var userName = intent.getStringExtra("userName")
+        if(intent.getStringExtra("writerName") == userName){
+            binding.boardDetailButtonModify.visibility = View.VISIBLE
+            binding.boardDetailButtonDelete.visibility = View.VISIBLE
+        }
+
+        // 상단 board 수정 및 삭제
+        binding.boardDetailButtonModify.setOnClickListener {
+            var intent_modify = Intent(this, BoardModify::class.java)
+            intent_modify.putExtra("title", intent.getStringExtra("title"))
+            intent_modify.putExtra("contents", intent.getStringExtra("contents"))
+            intent_modify.putExtra("boardTimeStamp", intent.getStringExtra("date"))
+            startActivity(intent_modify)
+        }
+
+        binding.boardDetailButtonDelete.setOnClickListener {
+            db.collection("board").document("${binding.boardDetailTextViewDate.text}")
+                    .delete()
+                    .addOnSuccessListener { Log.e("성공", "삭제") }
+                    .addOnFailureListener { e -> Log.e("실패", "Error deleting document", e) }
+            gotoActivity(BoardActivity::class.java)
+        }
 
         // fireStore에서 comments를 recycleriew로 읽어오기
         var commentList = arrayListOf<CommentModel>()
@@ -70,7 +92,6 @@ class BoardDetailActivity : AppCompatActivity() {
                     commentList.clear()
 
                     for (doc in result!!.documentChanges) {
-
                             for (document in result) {
                                 val item = CommentModel(document["name"] as String, document["contents"] as String, document["timestamp"] as String, document["boardTimeStamp"] as String)
                                 commentList.add(item)
@@ -82,7 +103,7 @@ class BoardDetailActivity : AppCompatActivity() {
 
         // 전송 버튼 눌렀을 때
         binding.boardDetailActivityButtonSend.setOnClickListener ( View.OnClickListener {
-            
+
             // 댓글 내용, 게시글 타임스탬프
             var comment = binding.boardDetailActivityEdittextComment.getText().toString()
             var commentModel = CommentModel(name, comment, timeStamp, boardTimeStamp)
@@ -102,6 +123,7 @@ class BoardDetailActivity : AppCompatActivity() {
 
         binding.boardDetailActivityRecyclerView.adapter = adapter
     }
+    
 
     // Intent function
     private fun gotoActivity(c: Class<*>) {

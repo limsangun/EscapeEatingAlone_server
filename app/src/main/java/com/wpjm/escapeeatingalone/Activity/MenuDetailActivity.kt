@@ -27,7 +27,7 @@ class MenuDetailActivity : AppCompatActivity() {
             MenuDetailModel(R.drawable.rice, "영진돼지국밥", "경성대 돼지국밥", "한식"),
             MenuDetailModel(R.drawable.rice, "차이나타운", "경성대 중국집", "중식"),
             MenuDetailModel(R.drawable.rice, "겐로쿠", "경성대 우동", "일식"),
-            MenuDetailModel(R.drawable.rice, "노랑통닭", "경성대 차킨", "치킨"),
+            MenuDetailModel(R.drawable.rice, "노랑통닭", "경성대 치킨", "치킨"),
             MenuDetailModel(R.drawable.rice, "미스터피자", "경성대 피자", "피자"),
             MenuDetailModel(R.drawable.rice, "멕시카나", "경성대 치킨", "치킨"),
             MenuDetailModel(R.drawable.rice, "보리밭", "경성대 밥골", "한식"),

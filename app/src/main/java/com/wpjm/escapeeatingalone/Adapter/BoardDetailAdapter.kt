@@ -43,7 +43,6 @@ class BoardDetailAdapter(val BoardCommentList: ArrayList<CommentModel>) : Recycl
         // 자신의 댓글만 수정, 삭제 버튼 보이기
         if(holder.name.text == userName){
             holder.button_comment_delete.visibility = View.VISIBLE
-            holder.button_comment_modify.visibility = View.VISIBLE
         }
         
         holder.button_comment_delete.setOnClickListener {
@@ -51,10 +50,6 @@ class BoardDetailAdapter(val BoardCommentList: ArrayList<CommentModel>) : Recycl
                 .delete()
                 .addOnSuccessListener { Log.e("성공", "삭제") }
                 .addOnFailureListener { e -> Log.e("실패", "Error deleting document", e) }
-        }
-
-        holder.button_comment_modify.setOnClickListener {
-            Log.e("modify", "수정")
         }
     }
 
@@ -64,7 +59,6 @@ class BoardDetailAdapter(val BoardCommentList: ArrayList<CommentModel>) : Recycl
         val contents = itemView.findViewById<TextView>(R.id.boardComment_textview_contents) // 내용
         val commentTimeStamp = itemView.findViewById<TextView>(R.id.boardComment_textview_timeStamp) // 날짜
         var button_comment_delete = itemView.findViewById<Button>(R.id.boardComment_button_delete)
-        var button_comment_modify = itemView.findViewById<Button>(R.id.boardComment_button_modify)
     }
 
 

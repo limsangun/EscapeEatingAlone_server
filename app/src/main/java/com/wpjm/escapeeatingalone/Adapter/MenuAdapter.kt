@@ -10,6 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.wpjm.escapeeatingalone.Model.Menu
 import com.wpjm.escapeeatingalone.R
 
@@ -41,4 +43,6 @@ class MenuAdapter(val menuList:ArrayList<Menu>) :RecyclerView.Adapter<MenuAdapte
         val image=itemView.findViewById<ImageView>(R.id.iv_menuImage)
         val name=itemView.findViewById<TextView>(R.id.tv_menuName)
     }
+
 }
+
