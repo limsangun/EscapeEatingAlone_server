@@ -23,12 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-<<<<<<< HEAD
-        <activity android:name=".Activity.AddFriendActivity"></activity>
-=======
-        <activity android:name=".Activity.PartyMakeActivity"></activity>
+
         <activity android:name=".Activity.BoardModify" />
->>>>>>> 631eb9c348b082738cb26c8a8de3f784c904b5b2
         <activity android:name=".Activity.PartyActivity" />
         <activity android:name=".Activity.MenuDetailActivity" />
 
