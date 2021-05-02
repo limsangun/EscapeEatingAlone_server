@@ -78,18 +78,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/boardComment_button_modify"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginBottom="2dp"
-            android:background="@drawable/ic_baseline_edit_24"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/boardComment_button_delete" />
-
-        <Button
             android:id="@+id/boardComment_button_delete"
             android:layout_width="25dp"
             android:layout_height="25dp"

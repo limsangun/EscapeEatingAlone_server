@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wpjm.escapeeatingalone.Adapter.BoardAdapter
 import com.wpjm.escapeeatingalone.Model.BoardModel
@@ -23,7 +24,6 @@ class BoardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_board)
         mBinding = ActivityBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         // fireStore에서 읽어오기
         var boardList = arrayListOf<BoardModel>()

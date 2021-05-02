@@ -8,15 +8,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.CollectionReference
 import com.wpjm.escapeeatingalone.Model.MenuDetailModel
 import com.wpjm.escapeeatingalone.Model.PartyModel
 import com.wpjm.escapeeatingalone.R
 
 
-class PartyAdapter(val partyList:ArrayList<PartyModel>) :RecyclerView.Adapter<PartyAdapter.CustomViewHolder>(){
+class PartyAdapter(val partyList: ArrayList<PartyModel>) :RecyclerView.Adapter<PartyAdapter.CustomViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PartyAdapter.CustomViewHolder {
-        val view= LayoutInflater.from(parent.context).inflate(R.layout.item_party,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_party,parent,false)
         return CustomViewHolder(view)
     }
 
@@ -28,6 +29,7 @@ class PartyAdapter(val partyList:ArrayList<PartyModel>) :RecyclerView.Adapter<Pa
         holder.date.text = partyList.get(position).date
         holder.title.text = partyList.get(position).title
         holder.count.text = partyList.get(position).count
+
     }
     
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
