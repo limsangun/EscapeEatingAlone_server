@@ -36,10 +36,12 @@ class PartyActivity : AppCompatActivity() {
                     partyList.clear()
                     for(document in result) {
                         val item = PartyModel(
-                                document["date"] as String,
                                 document["title"] as String,
+                                document["date"] as String,
                                 document["count"] as String,
-                                document["storeName"] as String
+                                document["contents"] as String,
+                                document["storeName"] as String,
+                                document["timeStamp"] as String
                         )
                         partyList.add(item)
                     }
@@ -50,12 +52,19 @@ class PartyActivity : AppCompatActivity() {
                 }
 
         binding.partyActivityButtonWrite.setOnClickListener {
-            gotoActivity(PartyMakeActivity::class.java)
+            var intent = Intent(this, PartyMakeActivity::class.java)
+            intent.putExtra("storeName", storeName)
+            startActivity(intent)
         }
 
         binding.partyActivityRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         binding.partyActivityRecyclerView.setHasFixedSize(true)
         binding.partyActivityRecyclerView.adapter = adapter
+
+        val manager = LinearLayoutManager(this)
+        manager.reverseLayout = true
+        manager.stackFromEnd = true
+        binding.partyActivityRecyclerView.layoutManager = manager
     }
 
     // Intent function
