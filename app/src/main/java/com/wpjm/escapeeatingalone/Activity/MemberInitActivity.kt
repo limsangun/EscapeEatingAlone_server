@@ -43,16 +43,16 @@ class MemberInitActivity: AppCompatActivity() {
                 if (document != null){
                     if (document!!.exists()) { // 개인정보가 존재하면
                         db.collection("users").get()
-                            .addOnSuccessListener { result ->
-                                itemList.clear()
-                                for (document in result) {  // 가져온 문서들은 result에 들어감
-                                    val item =document["name"] as String
-                                    itemList.add(item)
-                                    Log.d("ItemNames","${itemList}")
+                                .addOnSuccessListener { result ->
+                                    itemList.clear()
+                                    for (document in result) {  // 가져온 문서들은 result에 들어감
+                                        val item =document["name"] as String
+                                        itemList.add(item)
+                                        Log.d("ItemNames","${itemList}")
+                                    }
+
+
                                 }
-
-
-                            }
                     } else { // 개인정보가 존재하지 않으면
 
                     }
@@ -83,28 +83,28 @@ class MemberInitActivity: AppCompatActivity() {
     private fun saveUserToFirebaseDatabase(profileImageUrl: String,name:String,phoneNumber:String,birthDay:String,address:String) {
 
         if (name.length > 0 && name !in itemList &&
-            phoneNumber.length > 0 &&
-            birthDay.length > 0 &&
-            address.length > 0 ) {
+                phoneNumber.length > 0 &&
+                birthDay.length > 0 &&
+                address.length > 0 ) {
 
 
-        // member
+            // member
             Log.d("ImageTest","DDDDDDDDDDDD:${profileImageUrl}")
             var memberInfo = MemberInfo(profileImageUrl, name, phoneNumber, birthDay, address)
 
 
             db.collection("users").document(user!!.getUid()).set(memberInfo) // Firebase Cloud Store 삽입
-                .addOnSuccessListener { // 성공할 때
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    Toast.makeText(this, "회원정보 등록 성공", Toast.LENGTH_SHORT).show()
-                    Log.e("msg", "회원정보 등록 성공")
-                    finish()
-                }
-                .addOnFailureListener { // 실패할 때
-                    Toast.makeText(this, "회원정보 등록 실패", Toast.LENGTH_SHORT).show()
-                    Log.e("msg", "회원정보 등록 실패")
-                }
+                    .addOnSuccessListener { // 성공할 때
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        Toast.makeText(this, "회원정보 등록 성공", Toast.LENGTH_SHORT).show()
+                        Log.e("msg", "회원정보 등록 성공")
+                        finish()
+                    }
+                    .addOnFailureListener { // 실패할 때
+                        Toast.makeText(this, "회원정보 등록 실패", Toast.LENGTH_SHORT).show()
+                        Log.e("msg", "회원정보 등록 실패")
+                    }
 
         } else {
             if (name in itemList ){
@@ -112,7 +112,7 @@ class MemberInitActivity: AppCompatActivity() {
             }
 
             else {Toast.makeText(this, "회원정보를 입력해주세요", Toast.LENGTH_SHORT).show()
-            Log.e("msg", "회원정보를 입력해주세요")
+                Log.e("msg", "회원정보를 입력해주세요")
             }
         }
 
@@ -136,9 +136,9 @@ class MemberInitActivity: AppCompatActivity() {
     private fun uploadImageToFirebaseStorage(){
         if (selectedPhotoUri==null) {
             saveUserToFirebaseDatabase("",binding.memberinitActivityEdittextName.getText().toString(),
-                binding.memberinitActivityEdittextPhonenumber.getText().toString(),
-                binding.memberinitActivityEdittextBirthday.getText().toString(),
-                binding.memberinitActivityEdittextAddress.getText().toString())
+                    binding.memberinitActivityEdittextPhonenumber.getText().toString(),
+                    binding.memberinitActivityEdittextBirthday.getText().toString(),
+                    binding.memberinitActivityEdittextAddress.getText().toString())
             return
         }
         val filename= UUID.randomUUID().toString()
@@ -151,9 +151,9 @@ class MemberInitActivity: AppCompatActivity() {
                         it.toString()
                         Log.d("RegisterActivity","File Location: $it")
                         saveUserToFirebaseDatabase(it.toString(),binding.memberinitActivityEdittextName.getText().toString(),
-                            binding.memberinitActivityEdittextPhonenumber.getText().toString(),
-                            binding.memberinitActivityEdittextBirthday.getText().toString(),
-                            binding.memberinitActivityEdittextAddress.getText().toString())
+                                binding.memberinitActivityEdittextPhonenumber.getText().toString(),
+                                binding.memberinitActivityEdittextBirthday.getText().toString(),
+                                binding.memberinitActivityEdittextAddress.getText().toString())
 
                     }
                 }
@@ -170,5 +170,5 @@ class MemberInitActivity: AppCompatActivity() {
         super.onBackPressed()
         finish() // 앱 종료
     }
-    
+
 }

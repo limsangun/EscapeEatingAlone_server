@@ -34,12 +34,13 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
     }*/
 
     init {
-        db.collection("users")
+        db.collection("friends").document(user!!.getUid())
                 .get()
                 .addOnSuccessListener { result ->
                     personList.clear()
-                    for (document in result) {
-                        val item = PersonModel(document["name"] as String)
+                    var fList =result["friendNames"] as MutableList<String>
+                    for (name in fList) {
+                        val item = PersonModel(name)
                         personList.add(item)
 
 
