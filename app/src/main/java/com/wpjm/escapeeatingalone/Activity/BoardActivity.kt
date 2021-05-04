@@ -43,7 +43,6 @@ class BoardActivity : AppCompatActivity() {
                     Log.e("no data", "$exception")
                 }
 
-
         binding.boardActivityRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.boardActivityRecyclerView.setHasFixedSize(true)
         binding.boardActivityRecyclerView.adapter = adapter

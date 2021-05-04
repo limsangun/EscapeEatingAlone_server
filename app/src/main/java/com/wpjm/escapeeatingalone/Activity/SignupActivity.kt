@@ -26,6 +26,7 @@ class SignupActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance();
 
+
         // 회원가입 버튼 누룰 때
         binding.signupActivityButtonSignup.setOnClickListener(View.OnClickListener {
             if (binding.signupActivityEdittextEmail.length() > 0 && binding.signupActivityEdittextPassword.length() > 0 && binding.signupActivityEdittextPassword2.length() > 0) {

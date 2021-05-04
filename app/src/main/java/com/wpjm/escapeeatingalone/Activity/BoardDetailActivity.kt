@@ -37,10 +37,10 @@ class BoardDetailActivity : AppCompatActivity() {
                 .addOnSuccessListener { result ->
                     name = result["name"] as String
                 }
-        
+
         // 현재시간
         val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")
+        val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초 SSS")
         val timeStamp = current.format(formatter)
 
         // 게시글 타임스탬프
@@ -93,10 +93,14 @@ class BoardDetailActivity : AppCompatActivity() {
 
                     for (doc in result!!.documentChanges) {
                             for (document in result) {
-                                val item = CommentModel(document["name"] as String, document["contents"] as String, document["timestamp"] as String, document["boardTimeStamp"] as String)
+                                val item = CommentModel(
+                                                document["name"] as String,
+                                                document["contents"] as String,
+                                                document["timestamp"] as String,
+                                                document["boardTimeStamp"] as String
+                                )
                                 commentList.add(item)
                             }
-
                         adapter.notifyDataSetChanged() // 리사이클러뷰 갱신
                     }
                 }
