@@ -4,36 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D4C9E8"
     tools:context=".Activity.PartyMakeActivity">
 
     <EditText
-        android:id="@+id/partyMake_write"
+        android:id="@+id/partyMake_edittext_title"
         android:layout_width="0dp"
-        android:layout_height="42dp"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:ems="10"
-        android:gravity="center_vertical"
-        android:hint="모집글쓰기"
-        android:inputType="textPersonName"
+        android:background="@drawable/rounded_edittext_register_login"
+        android:hint="제목"
+        android:outlineAmbientShadowColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/partyMake_button_complete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/partyMake_edittext_date"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:text="등록하기"
+        android:background="@drawable/rounded_edittext_register_login"
+        android:hint="먹방날짜"
+        android:outlineAmbientShadowColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/partyMake_write" />
+        app:layout_constraintTop_toBottomOf="@+id/partyMake_edittext_title" />
+
+    <EditText
+        android:id="@+id/partyMake_edittext_count"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/rounded_edittext_register_login"
+        android:hint="인원수"
+        android:outlineAmbientShadowColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partyMake_edittext_date" />
+
+    <EditText
+        android:id="@+id/partyMake_edittext_contents"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/rounded_edittext_register_login"
+        android:hint="내용"
+        android:outlineAmbientShadowColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/partyMake_button_complete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.822"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partyMake_edittext_count" />
+
+    <Button
+        android:id="@+id/partyMake_button_complete"
+        android:layout_width="350dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/rounded_btn"
+        android:text="단톡방 만들기"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

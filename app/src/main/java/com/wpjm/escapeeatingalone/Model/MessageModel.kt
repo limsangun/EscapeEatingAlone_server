@@ -1,11 +1,17 @@
 package com.wpjm.escapeeatingalone.Model
 
-class MessageModel {
-    var users = hashMapOf<String, Boolean>() // 채팅방 유저들
-    var comments = hashMapOf<String, Boolean>() // 채팅방 내용
+import android.text.Editable
 
-    class Comment {
-        var uid:String = ""
-        var message:String = ""
+class MessageModel {
+//    var profile:Int = 0
+    var name: String = ""
+    var contents: String = ""
+    var timeStamp: String = ""
+
+    constructor(name: String, contents: String, timeStamp: String) {
+//        this.profile = profile
+        this.name = name
+        this.contents = contents
+        this.timeStamp = timeStamp
     }
 }

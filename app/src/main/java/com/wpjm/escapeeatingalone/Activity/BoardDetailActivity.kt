@@ -40,7 +40,7 @@ class BoardDetailActivity : AppCompatActivity() {
 
         // 현재시간
         val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")
+        val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초 SSS")
         val timeStamp = current.format(formatter)
 
         // 게시글 타임스탬프
