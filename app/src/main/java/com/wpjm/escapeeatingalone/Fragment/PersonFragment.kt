@@ -1,26 +1,34 @@
-package com.wpjm.escapeeatingalone
+ package com.wpjm.escapeeatingalone
 
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 import com.wpjm.escapeeatingalone.Adapter.FragmentPersonAdapter
+import com.wpjm.escapeeatingalone.Model.FriendsList
 import com.wpjm.escapeeatingalone.Model.PersonModel
 import com.wpjm.escapeeatingalone.databinding.ActivityAddFriendBinding
 import com.wpjm.escapeeatingalone.databinding.FragmentPersonBinding
 
 
-class PersonFragment : Fragment() {
+ class PersonFragment : Fragment() {
     private var mBinding: FragmentPersonBinding? = null
     private val binding get() = mBinding!!
     private var mBindings: ActivityAddFriendBinding? = null
@@ -30,7 +38,7 @@ class PersonFragment : Fragment() {
     private var db = FirebaseFirestore.getInstance()
     private val database by lazy { FirebaseDatabase.getInstance() }
     private val mRootRef = FirebaseDatabase.getInstance().getReference()
-    private val conditionRef = mRootRef.child("friend")
+    private val conditionRef = mRootRef.child("users")
 
 
 
@@ -48,10 +56,13 @@ class PersonFragment : Fragment() {
         var frgmentPersonView = inflater.inflate(R.layout.fragment_person, container, false)
         var fab = frgmentPersonView.findViewById<Button>(R.id.fab)
         var name=""
+        var imageUrl=""
         db.collection("users").document(user!!.getUid()).get()
                 .addOnSuccessListener { result ->
                     name=result["name"] as String
+                    imageUrl=result["profileImageUrl"] as String
                     binding.fragmentpersonTextView23.setText(name)
+                    Picasso.get().load(imageUrl).into(frgmentPersonView.findViewById<ImageView>(R.id.fragmentperson_image_profile))
                     frgmentPersonView.findViewById<TextView>(R.id.fragmentperson_textView23).setText(
                             name
                     )
@@ -68,6 +79,7 @@ class PersonFragment : Fragment() {
         reyclerView.layoutManager = LinearLayoutManager(activity)
         reyclerView.adapter = adapter
 
+        val nameRef = db.collection("users")
         var button = view.findViewById<Button>(R.id.fab)
         button.setOnClickListener {
             var dialogview = LayoutInflater.from(context).inflate(R.layout.activity_add_friend, null)
@@ -75,24 +87,55 @@ class PersonFragment : Fragment() {
                     .setTitle("Add Contact")
             var alert = builder.show()
             dialogview.findViewById<Button>(R.id.btn_add).setOnClickListener {
+                //var name=bindings.dialogNameId.getText().toString()
+                var name= dialogview.findViewById<TextView>(R.id.dialog_name_id).text.toString()
+                var nameQuery=nameRef.whereEqualTo("name", name).get().addOnSuccessListener { documents ->
+                    for (document in documents){
+                        Log.d("QueryTest", "${document.data}")
+                        val docRef: DocumentReference = db.collection("friends").document(user!!.getUid())
+                        docRef.get().addOnCompleteListener { task ->
+
+                            if (task.isSuccessful) {
+                                var friendNames: FriendsList
+                                val document = task.result
+                                if (document != null){
+                                    if (document!!.exists()) {
+                                        var fList =document["friendNames"] as MutableList<String>
+                                        if (name in fList){
+                                            Toast.makeText(context, "이미 추가된 친구 입니다.", Toast.LENGTH_SHORT).show()
+                                            Log.d("TESTFDSFSD", "이미 등록된 친구임")
+                                        }else{
+                                            fList.add(name)
+                                            friendNames=FriendsList(fList)
+                                            docRef.set(friendNames)
+                                            Log.d("TESTFDSFSD", "친구 등록 업뎃완료 ${fList}")
+                                            Toast.makeText(context, "친구등록 성공!", Toast.LENGTH_SHORT).show()
+                                            refreshFragment(this, parentFragmentManager)
+                                            //refreshFragment(this,fragmentManager())
+
+                                        }
+
+
+                                    } else {
+                                        friendNames=FriendsList(mutableListOf(name))
+                                        docRef.set(friendNames)
+                                        Toast.makeText(context, "친구 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                                        Log.d("TESTFDSFSD", "친구 등록 성공!!!!")
+                                    }
+                                }
+                            } else {
+                                Log.e("msg", "에러")
+                            }
+                        }
+
+
+
+                    }
+                }
+                Log.d("queryTest", "name: ${nameQuery}")
                 alert.dismiss()
-                val name: String = bindings.dialogNameId.text.toString()
-                bindings.dialogNameId.getText().toString()
-                val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-                val myRef : DatabaseReference = database.getReference("friend")
-
-                myRef.addValueEventListener(object : ValueEventListener {
-
-                    override fun onDataChange(snapshot: DataSnapshot) {
-
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        println("Failed to read value.")
-                    }
-
-                })
-
+                //val name: String = bindings.dialogNameId.text.toString()
+                //bindings.dialogNameId.getText().toString()
 
 /*
                 db.collection("users")
@@ -110,6 +153,25 @@ class PersonFragment : Fragment() {
         }
 
     }
+
+     private fun refreshFragment(fragment: PersonFragment, fragmentManager: FragmentManager) {
+         var ft: FragmentTransaction = fragmentManager.beginTransaction()
+         ft.detach(fragment).attach(fragment).commit()
+     }
+
+
+
+    /*private fun refreshFragment(fragment: PersonFragment, fragmentManager: FragmentManager?) {
+         var ft = fragmentManager.beginTransaction()
+         ft.detach(fragment).attach(fragment).commit()
+
+     }*/
+
+
+
+
+
+
 /*
     private fun addfriend() {
 
