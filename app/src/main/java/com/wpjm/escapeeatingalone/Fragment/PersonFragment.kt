@@ -1,4 +1,4 @@
- package com.wpjm.escapeeatingalone
+package com.wpjm.escapeeatingalone
 
 
 import android.app.AlertDialog

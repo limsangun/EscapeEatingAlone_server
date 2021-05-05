@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 import com.wpjm.escapeeatingalone.Activity.BoardDetailActivity
 import com.wpjm.escapeeatingalone.Model.BoardModel
 import com.wpjm.escapeeatingalone.R
@@ -19,11 +20,15 @@ class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<
     private var db = FirebaseFirestore.getInstance()
     private val user = FirebaseAuth.getInstance().currentUser
     private var userName=""
+    private var imageUrl=""
 
     init {
+        // users의 name, imageUrl
         db.collection("users").document(user!!.getUid()).get()
                 .addOnSuccessListener { result ->
-                    userName = result["name"] as String }
+                    userName = result["name"] as String
+                    imageUrl=result["profileImageUrl"] as String
+                }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardAdapter.CustomViewHolder {
@@ -37,7 +42,7 @@ class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: BoardAdapter.CustomViewHolder, position: Int) {
-        holder.profile.setImageResource(BoardList.get(position).profile)
+//        holder.profile.setImageResource(R.drawable.)
         var writerName = BoardList.get(position).name
         holder.title.text = BoardList.get(position).title
         holder.contents.text = BoardList.get(position).contents
@@ -57,9 +62,8 @@ class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<
         }
     }
 
-
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val profile = itemView.findViewById<ImageView>(R.id.boardActivity_image_profile) // 이미지
+//        val profile = Picasso.get().load(imageUrl).into(itemView.findViewById<ImageView>(R.id.boardActivity_image_profile)) // 이미지
         val title = itemView.findViewById<TextView>(R.id.boardActivity_textview_title) // 제목
         val contents = itemView.findViewById<TextView>(R.id.boardActivity_textview_contents) // 내용
         val date = itemView.findViewById<TextView>(R.id.boardActivity_textview_date) // 날짜
