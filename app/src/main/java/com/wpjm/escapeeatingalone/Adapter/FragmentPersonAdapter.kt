@@ -37,15 +37,23 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
         db.collection("friends").document(user!!.getUid())
                 .get()
                 .addOnSuccessListener { result ->
+                    Log.d("nullTest!!!!!!!!!!!","일단 success")
                     personList.clear()
-                    var fList =result["friendNames"] as MutableList<String>
-                    for (name in fList) {
-                        val item = PersonModel(name)
-                        personList.add(item)
-
+                    var fList =result["friendNames"] as MutableList<String>?
+                    if (fList != null){
+                        Log.d("nullTest!!!!!!!!!!!","리스트에 친구 있음")
+                        for (name in fList) {
+                            val item = PersonModel(name)
+                            personList.add(item)
+                        }
+                        // 리사이클러뷰 갱신
 
                     }
-                    notifyDataSetChanged() // 리사이클러뷰 갱신
+                    else{
+                        Log.d("nullTest!!!!!!!!!!!","아직 친구없음")
+
+                    }
+                    notifyDataSetChanged()
                 }
                 .addOnFailureListener { exception ->
                     Log.e("no data", "$exception")
