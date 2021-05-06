@@ -38,8 +38,8 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
                 .get()
                 .addOnSuccessListener { result ->
                     personList.clear()
-                    var fList =result["friendNames"] as MutableList<String>
-                    for (name in fList) {
+                    var fList =result["friendNames"] as MutableList<String>?
+                    for (name in fList!!) {
                         val item = PersonModel(name)
                         personList.add(item)
 

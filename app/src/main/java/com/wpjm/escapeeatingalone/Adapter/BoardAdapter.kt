@@ -42,7 +42,8 @@ class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: BoardAdapter.CustomViewHolder, position: Int) {
-//        holder.profile.setImageResource(R.drawable.)
+        holder.profile.setImageResource(BoardList.get(position).profile)
+//        Picasso.get().load(imageUrl).into(BoardList.get(position).profile)
         var writerName = BoardList.get(position).name
         holder.title.text = BoardList.get(position).title
         holder.contents.text = BoardList.get(position).contents
@@ -63,7 +64,7 @@ class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<
     }
 
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        val profile = Picasso.get().load(imageUrl).into(itemView.findViewById<ImageView>(R.id.boardActivity_image_profile)) // 이미지
+        val profile = itemView.findViewById<ImageView>(R.id.boardActivity_image_profile) // 이미지
         val title = itemView.findViewById<TextView>(R.id.boardActivity_textview_title) // 제목
         val contents = itemView.findViewById<TextView>(R.id.boardActivity_textview_contents) // 내용
         val date = itemView.findViewById<TextView>(R.id.boardActivity_textview_date) // 날짜
