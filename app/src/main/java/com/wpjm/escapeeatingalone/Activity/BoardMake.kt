@@ -3,6 +3,7 @@ package com.wpjm.escapeeatingalone.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -29,9 +30,11 @@ class BoardMake : AppCompatActivity() {
         setContentView(binding.root)
 
         var name = ""
+        var imageUrl = ""
         db.collection("users").document(user!!.getUid()).get()
                 .addOnSuccessListener { result ->
                     name=result["name"] as String
+                    imageUrl=result["profileImageUrl"] as String
                 }
 
         val current = LocalDateTime.now()
@@ -43,8 +46,8 @@ class BoardMake : AppCompatActivity() {
             if (binding.boardMakeEdittextTitle.getText().toString().length > 0 &&
                 binding.boardMakeEdittextContents.getText().toString().length > 0
             ) {
-
                 var boardModel = BoardModel(
+                    imageUrl!!,
                     name!!,
                     binding.boardMakeEdittextTitle.getText().toString(),
                     binding.boardMakeEdittextContents.getText().toString(),
