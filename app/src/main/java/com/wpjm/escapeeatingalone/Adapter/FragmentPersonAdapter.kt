@@ -5,21 +5,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.wpjm.escapeeatingalone.Activity.BoardActivity
 import com.wpjm.escapeeatingalone.Activity.MemberInitActivity
 import com.wpjm.escapeeatingalone.Activity.SignupActivity
 import com.wpjm.escapeeatingalone.Model.PersonModel
 import com.wpjm.escapeeatingalone.R
+import com.wpjm.escapeeatingalone.databinding.ActivityAddFriendBinding
 import com.wpjm.escapeeatingalone.databinding.FragmentPersonBinding
 
 class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerView.Adapter<FragmentPersonAdapter.CustomViewHolder>() {
     private var db = FirebaseFirestore.getInstance()
     private val user = FirebaseAuth.getInstance().currentUser
+
     var firestore : FirebaseFirestore? = null
     private var mBinding: FragmentPersonBinding? = null
     private val binding get() = mBinding!!
@@ -42,8 +46,6 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
                     for (name in fList) {
                         val item = PersonModel(name)
                         personList.add(item)
-
-
                     }
                     notifyDataSetChanged() // 리사이클러뷰 갱신
                 }
@@ -56,6 +58,12 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FragmentPersonAdapter.CustomViewHolder {
         // item을 붙이기
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_person, parent, false)
+        view.findViewById<Button>(R.id.fragmentperson_button_delete).setOnClickListener {
+            db.collection("friends").document(user!!.getUid())
+                    .delete()
+                    .addOnSuccessListener { Log.e("성공", "삭제") }
+                    .addOnFailureListener { e -> Log.e("실패", "Error deleting document", e) }
+        }
         return CustomViewHolder(view)
     }
 

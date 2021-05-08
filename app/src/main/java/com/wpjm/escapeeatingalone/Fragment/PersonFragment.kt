@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
+import com.wpjm.escapeeatingalone.Activity.BoardActivity
 import com.wpjm.escapeeatingalone.Adapter.FragmentPersonAdapter
 import com.wpjm.escapeeatingalone.Model.FriendsList
 import com.wpjm.escapeeatingalone.Model.PersonModel
@@ -85,8 +86,9 @@ import com.wpjm.escapeeatingalone.databinding.FragmentPersonBinding
             var dialogview = LayoutInflater.from(context).inflate(R.layout.activity_add_friend, null)
             var builder = AlertDialog.Builder(context).setView(dialogview)
                     .setTitle("Add Contact")
-            var alert = builder.show()
+            val alert = builder.show()
             dialogview.findViewById<Button>(R.id.btn_add).setOnClickListener {
+                alert.dismiss()
                 //var name=bindings.dialogNameId.getText().toString()
                 var name= dialogview.findViewById<TextView>(R.id.dialog_name_id).text.toString()
                 var nameQuery=nameRef.whereEqualTo("name", name).get().addOnSuccessListener { documents ->
@@ -127,31 +129,14 @@ import com.wpjm.escapeeatingalone.databinding.FragmentPersonBinding
                                 Log.e("msg", "에러")
                             }
                         }
-
-
-
                     }
                 }
                 Log.d("queryTest", "name: ${nameQuery}")
+            }
+            dialogview.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
                 alert.dismiss()
-                //val name: String = bindings.dialogNameId.text.toString()
-                //bindings.dialogNameId.getText().toString()
-
-/*
-                db.collection("users")
-                        .whereEqualTo("name", name)
-                        .get()
-                        .addOnSuccessListener { querysnapshot ->
-                            if (querysnapshot != null) {
-                                for (dc in querysnapshot.documents) {
-                                    val name = dc["name"].toString()
-
-                                }
-                            }
-                        }*/
             }
         }
-
     }
 
      private fun refreshFragment(fragment: PersonFragment, fragmentManager: FragmentManager) {
