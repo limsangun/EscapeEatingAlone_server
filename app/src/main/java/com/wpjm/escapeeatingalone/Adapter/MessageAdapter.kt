@@ -24,6 +24,8 @@ class MessageAdapter(val MessageList: ArrayList<MessageModel>) : RecyclerView.Ad
         db.collection("users").document(user!!.getUid()).get()
                 .addOnSuccessListener { result ->
                     userName = result["name"] as String }
+        db.collection("chatrooms").document()
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageAdapter.CustomViewHolder {

@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 import com.wpjm.escapeeatingalone.Activity.BoardDetailActivity
 import com.wpjm.escapeeatingalone.Model.BoardModel
 import com.wpjm.escapeeatingalone.R
@@ -19,11 +22,15 @@ class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<
     private var db = FirebaseFirestore.getInstance()
     private val user = FirebaseAuth.getInstance().currentUser
     private var userName=""
+    private var imageUrl=""
+
 
     init {
         db.collection("users").document(user!!.getUid()).get()
                 .addOnSuccessListener { result ->
-                    userName = result["name"] as String }
+                    userName = result["name"] as String
+                    imageUrl= result["profileImageUrl"] as String
+                }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardAdapter.CustomViewHolder {
@@ -37,7 +44,7 @@ class BoardAdapter(val BoardList: ArrayList<BoardModel>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: BoardAdapter.CustomViewHolder, position: Int) {
-        holder.profile.setImageResource(BoardList.get(position).profile)
+        Glide.with(holder.itemView.context).load(BoardList.get(position).profile).into(holder.profile)
         var writerName = BoardList.get(position).name
         holder.title.text = BoardList.get(position).title
         holder.contents.text = BoardList.get(position).contents
