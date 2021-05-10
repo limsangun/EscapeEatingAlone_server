@@ -30,11 +30,11 @@ class BoardActivity : AppCompatActivity() {
         var adapter = BoardAdapter(boardList)
 
         db.collection("board")
-             .get()
+                .get()
                 .addOnSuccessListener { result ->
                     boardList.clear()
                     for (document in result) {
-                        val item = BoardModel(document["profile"] as String?,document["name"] as String, document["title"] as String, document["contents"] as String, document["date"] as String)
+                        val item = BoardModel(document["profile"] as String, document["name"] as String, document["title"] as String, document["contents"] as String, document["date"] as String)
                         boardList.add(item)
                     }
                     adapter.notifyDataSetChanged() // 리사이클러뷰 갱신

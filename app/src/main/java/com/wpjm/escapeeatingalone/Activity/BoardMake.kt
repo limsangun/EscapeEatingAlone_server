@@ -47,7 +47,7 @@ class BoardMake : AppCompatActivity() {
                     binding.boardMakeEdittextContents.getText().toString().length > 0
             ) {
                 var boardModel = BoardModel(
-                        imageUrl,
+                        imageUrl!!,
                         name!!,
                         binding.boardMakeEdittextTitle.getText().toString(),
                         binding.boardMakeEdittextContents.getText().toString(),
@@ -58,7 +58,6 @@ class BoardMake : AppCompatActivity() {
                         .addOnSuccessListener { // 성공할 때
                             Toast.makeText(this, "업로드 성공", Toast.LENGTH_SHORT).show()
                             gotoActivity(BoardActivity::class.java)
-                            Log.e("imageUrl", imageUrl)
                         }
                         .addOnFailureListener { // 실패할 때
                             Toast.makeText(this, "업로드 실패", Toast.LENGTH_SHORT).show()

@@ -31,8 +31,10 @@ class MessageAdapter(val MessageList: ArrayList<MessageModel>) : RecyclerView.Ad
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageAdapter.CustomViewHolder {
         // item을 붙이기
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_message, parent, false)
+
         return CustomViewHolder(view)
     }
+
 
     override fun getItemCount(): Int {
         return MessageList.size

@@ -35,7 +35,7 @@ class BoardDetailAdapter(val BoardCommentList: ArrayList<CommentModel>) : Recycl
     }
 
     override fun onBindViewHolder(holder: BoardDetailAdapter.CustomViewHolder, position: Int) {
-    //    holder.profile.setImageResource(BoardCommentList.get(position).profile)
+        holder.profile.setImageResource(R.drawable.user)
         holder.name.text = BoardCommentList.get(position).name
         holder.contents.text = BoardCommentList.get(position).contents
         holder.commentTimeStamp.text = BoardCommentList.get(position).timestamp
