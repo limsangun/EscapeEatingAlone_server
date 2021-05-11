@@ -43,6 +43,7 @@ class PersonFragment : Fragment() {
 
 
     lateinit var reyclerView:RecyclerView
+
     private val list = ArrayList<PersonModel>()
     private val adapter:FragmentPersonAdapter = FragmentPersonAdapter(list)
 
