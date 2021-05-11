@@ -61,7 +61,6 @@ class PartyDetailActivity : AppCompatActivity() {
     }
 
     private fun MakeUser(title: String, storeName: String, chatroomId: String) {
-//        var chatroomModel: ChatroomModel
         var chatrooms = db.collection("chatrooms")
         chatrooms.get().addOnSuccessListener { documents ->
             for (document in documents) { 
@@ -73,7 +72,6 @@ class PartyDetailActivity : AppCompatActivity() {
                 }
                 else{ // uList안에 user의 uid가 존재하지않으면
                     uList.add(user!!.getUid())
-//                    chatroomModel = ChatroomModel(uList, title, storeName, chatroomId)
                     chatrooms.document(chatroomId).update(mapOf("users" to uList))
                 }
             }

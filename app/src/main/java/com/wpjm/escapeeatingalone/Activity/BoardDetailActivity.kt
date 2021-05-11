@@ -94,7 +94,6 @@ class BoardDetailActivity : AppCompatActivity() {
                     for (doc in result!!.documentChanges) {
                             for (document in result) {
                                 val item = CommentModel(
-                                                document["profile"] as Int,
                                                 document["name"] as String,
                                                 document["contents"] as String,
                                                 document["timestamp"] as String,
