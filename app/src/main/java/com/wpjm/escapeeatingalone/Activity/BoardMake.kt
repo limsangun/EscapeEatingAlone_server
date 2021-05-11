@@ -3,7 +3,6 @@ package com.wpjm.escapeeatingalone.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -44,24 +43,24 @@ class BoardMake : AppCompatActivity() {
         // 확인버튼을 눌렀을 때
         binding.boardMakeButtonOk.setOnClickListener(View.OnClickListener {
             if (binding.boardMakeEdittextTitle.getText().toString().length > 0 &&
-                binding.boardMakeEdittextContents.getText().toString().length > 0
+                    binding.boardMakeEdittextContents.getText().toString().length > 0
             ) {
                 var boardModel = BoardModel(
-                    imageUrl!!,
-                    name!!,
-                    binding.boardMakeEdittextTitle.getText().toString(),
-                    binding.boardMakeEdittextContents.getText().toString(),
-                    timeStamp.toString()
+                        imageUrl!!,
+                        name!!,
+                        binding.boardMakeEdittextTitle.getText().toString(),
+                        binding.boardMakeEdittextContents.getText().toString(),
+                        timeStamp.toString()
                 )
 
                 db.collection("board").document(timeStamp.toString()).set(boardModel)
-                    .addOnSuccessListener { // 성공할 때
-                        Toast.makeText(this, "업로드 성공", Toast.LENGTH_SHORT).show()
-                        gotoActivity(BoardActivity::class.java)
-                    }
-                    .addOnFailureListener { // 실패할 때
-                        Toast.makeText(this, "업로드 실패", Toast.LENGTH_SHORT).show()
-                    }
+                        .addOnSuccessListener { // 성공할 때
+                            Toast.makeText(this, "업로드 성공", Toast.LENGTH_SHORT).show()
+                            gotoActivity(BoardActivity::class.java)
+                        }
+                        .addOnFailureListener { // 실패할 때
+                            Toast.makeText(this, "업로드 실패", Toast.LENGTH_SHORT).show()
+                        }
             } else {
                 Toast.makeText(this, "제목과 내용을 입력해주세요", Toast.LENGTH_SHORT).show()
             }

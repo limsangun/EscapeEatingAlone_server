@@ -52,7 +52,7 @@ class PartyDetailActivity : AppCompatActivity() {
         binding.partyDetailActivityButtonCheck.setOnClickListener(View.OnClickListener {
             // chatrooms의 users에 해당 id가 없다면
             // chatrooms의 users숫자가 count보다 작으면
-            MakeUser(messageTitle, storeName, chatroomId)
+            MakeUser(name, messageTitle, storeName, chatroomId)
             var intent = Intent(this, MessageActivity::class.java)
             intent.putExtra("chatroomId", chatroomId)
             intent.putExtra("messageTitle", messageTitle)
@@ -60,8 +60,7 @@ class PartyDetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun MakeUser(title: String, storeName: String, chatroomId: String) {
-//        var chatroomModel: ChatroomModel
+    private fun MakeUser(name: String, title: String, storeName: String, chatroomId: String) {
         var chatrooms = db.collection("chatrooms")
         chatrooms.get().addOnSuccessListener { documents ->
             for (document in documents) { 
@@ -72,8 +71,7 @@ class PartyDetailActivity : AppCompatActivity() {
                     Log.d("partyDetail", "이미 존재하는 회원입니다")
                 }
                 else{ // uList안에 user의 uid가 존재하지않으면
-                    uList.add(user!!.getUid())
-//                    chatroomModel = ChatroomModel(uList, title, storeName, chatroomId)
+                    uList.add(name)
                     chatrooms.document(chatroomId).update(mapOf("users" to uList))
                 }
             }

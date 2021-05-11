@@ -96,7 +96,7 @@ class PartyMakeActivity : AppCompatActivity() {
                 .set(messageModel)
                 .addOnSuccessListener {
                     Toast.makeText(this, "채팅방 생성 성공", Toast.LENGTH_SHORT).show()
-                    MakeUser(title, storeName, date, timeStamp)
+                    MakeUser(name, title, storeName, date, timeStamp)
                     var intent = Intent(this, MessageActivity::class.java)
                     intent.putExtra("chatroomId", timeStamp)
                     startActivity(intent)
@@ -107,8 +107,8 @@ class PartyMakeActivity : AppCompatActivity() {
     }
 
     // chatromms의 users에 생성하기
-    private fun MakeUser(title: String, storeName: String, date: String, timeStamp: String) {
-        var chatroomModel = ChatroomModel(mutableListOf(user!!.getUid()), title, storeName, date, timeStamp)
+    private fun MakeUser(name: String, title: String, storeName: String, date: String, timeStamp: String) {
+        var chatroomModel = ChatroomModel(mutableListOf(name), title, storeName, date, timeStamp)
 
         db.collection("chatrooms").document(timeStamp)
                 .set(chatroomModel)
