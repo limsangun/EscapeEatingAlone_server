@@ -45,6 +45,7 @@ class PersonFragment : Fragment() {
 
 
     lateinit var reyclerView:RecyclerView
+
     private val list = ArrayList<PersonModel>()
     @RequiresApi(Build.VERSION_CODES.O)
     private val adapter:FragmentPersonAdapter = FragmentPersonAdapter(list)

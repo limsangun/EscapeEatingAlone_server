@@ -1,24 +1,31 @@
 package com.wpjm.escapeeatingalone.Activity
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.core.Query
+import com.wpjm.escapeeatingalone.Adapter.FragmentPersonAdapter
 import com.wpjm.escapeeatingalone.Adapter.MessageAdapter
+import com.wpjm.escapeeatingalone.Adapter.MsgPersonAdaper
 import com.wpjm.escapeeatingalone.Model.MessageModel
+import com.wpjm.escapeeatingalone.Model.PersonModel
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityMessageBinding
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class MessageActivity : AppCompatActivity() {
+class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var mBinding: ActivityMessageBinding? = null
     private val binding get() = mBinding!!
     private val user = FirebaseAuth.getInstance().currentUser
@@ -42,6 +49,8 @@ class MessageActivity : AppCompatActivity() {
         var messageTitle = intent.getStringExtra("messageTitle")
         binding.messageActivityEdittextTitle.setText(messageTitle)
 
+
+
         // 채팅룸 id
         var chatrommId = intent.getStringExtra("chatroomId").toString()
 
@@ -49,11 +58,13 @@ class MessageActivity : AppCompatActivity() {
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초 SSS")
         val timeStamp = current.format(formatter)
-
+        val chatRef=db.collection("chatrooms").document(chatrommId)
         // fireStore chatrooms 에서 읽어오기
         var messageList = arrayListOf<MessageModel>()
+        var personList = mutableListOf<String>()
         var adapter = MessageAdapter(messageList)
-        db.collection("chatrooms").document(chatrommId)
+        var padaper=MsgPersonAdaper(personList)
+        chatRef
             .collection("message")
             .orderBy("timeStamp", com.google.firebase.firestore.Query.Direction.ASCENDING)
             .addSnapshotListener { result, e ->
@@ -68,7 +79,31 @@ class MessageActivity : AppCompatActivity() {
                 }
                 adapter.notifyDataSetChanged() // 리사이클러뷰 갱신
             }
-        
+        chatRef.get()
+                .addOnSuccessListener { result ->
+                    Log.d("nullTest!!!!!!!!!!!","일단 success")
+                    personList.clear()
+                    var uList =result["users"] as MutableList<String>?
+                    Log.d("nullTest!!!!!!!!!!!","참여자는 ${uList}")
+                    if (uList != null){
+                        Log.d("nullTest!!!!!!!!!!!","단톡에 사람 있음")
+                        for (name in uList) {
+                            personList.add(name)
+
+                        }
+                        Log.d("nullTest!!!!!!!!!!!","참여자는 ${personList}")
+                        // 리사이클러뷰 갱신
+
+                    }
+                    else{
+                        Log.d("nullTest!!!!!!!!!!!","참가자없음")
+
+                    }
+                    padaper.notifyDataSetChanged()
+                }
+
+        binding.chatPesonList.layoutManager=LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.chatPesonList.adapter=padaper
         binding.messageActivityRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.messageActivityRecyclerView.setHasFixedSize(true)
         binding.messageActivityRecyclerView.adapter = adapter
@@ -76,6 +111,32 @@ class MessageActivity : AppCompatActivity() {
         // 네비게이션 버튼 눌렀을 때
         binding.messageActivityButtonUserNavi.setOnClickListener{
             binding.layoutDrawer2.openDrawer(GravityCompat.START)
+        }
+        binding.userView.setNavigationItemSelectedListener(this)
+        binding.exitChat.setOnClickListener {
+            chatRef.get()
+                    .addOnSuccessListener { result ->
+                        Log.d("nullTest!!!!!!!!!!!","일단 success")
+                        personList.clear()
+                        var uList =result["users"] as MutableList<String>?
+                        Log.d("nullTest!!!!!!!!!!!","참여자는 ${uList}")
+                        if (uList != null) {
+                            uList.remove(name)
+                            if (uList.isEmpty()){
+                                chatRef.delete()
+                                Log.d("nullTest!!!!!!!!!!!","참가자 아무도 없어서 삭제")
+
+                            }
+                            chatRef.update("users",uList)
+                        }
+
+                        else{
+                            Log.d("nullTest!!!!!!!!!!!","참가자없음")
+
+                        }
+                        finish()
+
+                    }
         }
         
         // 전송 버튼을 눌렀을 때
@@ -97,5 +158,14 @@ class MessageActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            //R.id.exit_chat -> Toast.makeText(this, "방 나가기!", Toast.LENGTH_SHORT).show()
+        }
+        return false
+    }
+
+
 }
 

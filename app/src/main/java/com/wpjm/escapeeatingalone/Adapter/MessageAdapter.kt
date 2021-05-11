@@ -24,13 +24,17 @@ class MessageAdapter(val MessageList: ArrayList<MessageModel>) : RecyclerView.Ad
         db.collection("users").document(user!!.getUid()).get()
                 .addOnSuccessListener { result ->
                     userName = result["name"] as String }
+        db.collection("chatrooms").document()
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageAdapter.CustomViewHolder {
         // item을 붙이기
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_message, parent, false)
+
         return CustomViewHolder(view)
     }
+
 
     override fun getItemCount(): Int {
         return MessageList.size
