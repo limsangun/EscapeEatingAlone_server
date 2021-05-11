@@ -10,16 +10,12 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.core.Query
-import com.wpjm.escapeeatingalone.Adapter.FragmentPersonAdapter
 import com.wpjm.escapeeatingalone.Adapter.MessageAdapter
 import com.wpjm.escapeeatingalone.Adapter.MsgPersonAdaper
 import com.wpjm.escapeeatingalone.Model.MessageModel
-import com.wpjm.escapeeatingalone.Model.PersonModel
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityMessageBinding
 import java.time.LocalDateTime
@@ -50,7 +46,6 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         binding.messageActivityEdittextTitle.setText(messageTitle)
 
 
-
         // 채팅룸 id
         var chatrommId = intent.getStringExtra("chatroomId").toString()
 
@@ -58,105 +53,97 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초 SSS")
         val timeStamp = current.format(formatter)
-        val chatRef=db.collection("chatrooms").document(chatrommId)
+
         // fireStore chatrooms 에서 읽어오기
+        val chatRef = db.collection("chatrooms").document(chatrommId)
         var messageList = arrayListOf<MessageModel>()
         var personList = mutableListOf<String>()
         var adapter = MessageAdapter(messageList)
-        var padaper=MsgPersonAdaper(personList)
+        var padaper = MsgPersonAdaper(personList)
+
         chatRef
-            .collection("message")
-            .orderBy("timeStamp", com.google.firebase.firestore.Query.Direction.ASCENDING)
-            .addSnapshotListener { result, e ->
-                if (e != null) {
-                    Log.e("error", e.toString())
-                    return@addSnapshotListener
+                .collection("message")
+                .orderBy("timeStamp", com.google.firebase.firestore.Query.Direction.ASCENDING)
+                .addSnapshotListener { result, e ->
+                    if (e != null) {
+                        Log.e("error", e.toString())
+                        return@addSnapshotListener
+                    }
+                    messageList.clear()
+                    for (document in result!!) {
+                        val item = MessageModel(document["name"] as String, document["contents"] as String, document["timeStamp"] as String)
+                        messageList.add(item)
+                    }
+                    adapter.notifyDataSetChanged() // 리사이클러뷰 갱신
                 }
-                messageList.clear()
-                for (document in result!!) {
-                    val item = MessageModel(document["name"] as String, document["contents"] as String, document["timeStamp"] as String)
-                    messageList.add(item)
-                }
-                adapter.notifyDataSetChanged() // 리사이클러뷰 갱신
-            }
-        chatRef.get()
-                .addOnSuccessListener { result ->
-                    Log.d("nullTest!!!!!!!!!!!","일단 success")
+
+        chatRef
+                .addSnapshotListener { result, e ->
+                    if (e != null) {
+                        Log.e("error", e.toString())
+                        return@addSnapshotListener
+                    }
+
                     personList.clear()
-                    var uList =result["users"] as MutableList<String>?
-                    Log.d("nullTest!!!!!!!!!!!","참여자는 ${uList}")
-                    if (uList != null){
-                        Log.d("nullTest!!!!!!!!!!!","단톡에 사람 있음")
+                    var uList = result!!["users"] as MutableList<String>?
+
+                    if (uList != null) {
                         for (name in uList) {
                             personList.add(name)
-
                         }
-                        Log.d("nullTest!!!!!!!!!!!","참여자는 ${personList}")
-                        // 리사이클러뷰 갱신
-
-                    }
-                    else{
-                        Log.d("nullTest!!!!!!!!!!!","참가자없음")
-
+                        Log.e("chatroomCount", uList.count().toString())
+                    } else {
+                        Log.d("MessageActivity", "참가자없음")
                     }
                     padaper.notifyDataSetChanged()
                 }
 
-        binding.chatPesonList.layoutManager=LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.chatPesonList.adapter=padaper
+        binding.chatPesonList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.chatPesonList.adapter = padaper
         binding.messageActivityRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.messageActivityRecyclerView.setHasFixedSize(true)
         binding.messageActivityRecyclerView.adapter = adapter
 
         // 네비게이션 버튼 눌렀을 때
-        binding.messageActivityButtonUserNavi.setOnClickListener{
+        binding.messageActivityButtonUserNavi.setOnClickListener {
             binding.layoutDrawer2.openDrawer(GravityCompat.START)
         }
         binding.userView.setNavigationItemSelectedListener(this)
         binding.exitChat.setOnClickListener {
             chatRef.get()
                     .addOnSuccessListener { result ->
-                        Log.d("nullTest!!!!!!!!!!!","일단 success")
                         personList.clear()
-                        var uList =result["users"] as MutableList<String>?
-                        Log.d("nullTest!!!!!!!!!!!","참여자는 ${uList}")
+                        var uList = result["users"] as MutableList<String>?
+
                         if (uList != null) {
                             uList.remove(name)
-                            if (uList.isEmpty()){
+                            if (uList.isEmpty()) {
                                 chatRef.delete()
-                                Log.d("nullTest!!!!!!!!!!!","참가자 아무도 없어서 삭제")
-
                             }
-                            chatRef.update("users",uList)
-                        }
-
-                        else{
-                            Log.d("nullTest!!!!!!!!!!!","참가자없음")
-
+                            chatRef.update("users", uList)
+                        } else {
+                            Log.d("MessageActivity", "참가자없음")
                         }
                         finish()
-
+                        gotoActivity(ChatActivity::class.java)
                     }
         }
-        
+
         // 전송 버튼을 눌렀을 때
-        binding.messageActivityButtonSend.setOnClickListener{
+        binding.messageActivityButtonSend.setOnClickListener {
             var message = binding.messageActivityEdittextMessage.getText().toString()
             var messageModel = MessageModel(name, message, timeStamp)
 
             db.collection("chatrooms").document(chatrommId)
-                .collection("message").document(timeStamp)
-                .set(messageModel)
+                    .collection("message").document(timeStamp)
+                    .set(messageModel)
                     .addOnSuccessListener {
                         binding.messageActivityEdittextMessage.setText(null)
-                        Log.e("채팅 올리기 성공", "채팅 올리기 성공")
                     }
                     .addOnFailureListener {
                         Toast.makeText(this, "업로드 실패", Toast.LENGTH_SHORT).show()
                     }
         }
-
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -166,6 +153,11 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         return false
     }
 
+    // Intent function
+    private fun gotoActivity(c: Class<*>) {
+        var intent = Intent(this, c)
+        startActivity(intent)
 
+    }
 }
 

@@ -51,10 +51,14 @@ class ChatlistFragment : Fragment() {
 
                     db.collection("chatrooms")
                             .whereArrayContains("users", name)
-                            .get()
-                            .addOnSuccessListener { documents ->
+                            .addSnapshotListener { documents, e ->
+                                if (e != null) {
+                                    Log.e("error", e.toString())
+                                    return@addSnapshotListener
+                                }
+
                                 list.clear()
-                                for (document in documents){
+                                for (document in documents!!){
                                     val item = ChatlistModel(
                                             R.drawable.user,
                                             document["title"] as String,
