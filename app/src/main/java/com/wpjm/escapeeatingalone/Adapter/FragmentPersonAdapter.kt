@@ -1,5 +1,6 @@
 package com.wpjm.escapeeatingalone.Adapter
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.util.Log
@@ -12,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -19,13 +22,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 import com.wpjm.escapeeatingalone.Activity.MemberInitActivity
 import com.wpjm.escapeeatingalone.Activity.MessageActivity
 import com.wpjm.escapeeatingalone.Activity.SignupActivity
 import com.wpjm.escapeeatingalone.Model.ChatroomModel
 import com.wpjm.escapeeatingalone.Model.PersonModel
+import com.wpjm.escapeeatingalone.PersonFragment
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.FragmentPersonBinding
+import org.w3c.dom.Text
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -38,6 +44,7 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
     private var userName = ""
 
     init {
+
         // 친구 목록 읽어오기
         db.collection("friends").document(user!!.getUid())
                 .get()
@@ -73,40 +80,13 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
                 .addOnSuccessListener { result ->
                     userName = result["name"] as String
                 }
+
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FragmentPersonAdapter.CustomViewHolder {
         // item을 붙이기
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_person, parent, false)
-
-        /*view.findViewById<Button>(R.id.fragmentperson_button_delete).setOnClickListener {
-            val myDatabase = FirebaseDatabase.getInstance().getReference("friends")
-            myDatabase.child("friendNames").removeValue()
-            /*db.collection("friends").document(user!!.getUid())
-                    .delete()
-                    .addOnSuccessListener { Log.e("성공", "삭제") }
-                    .addOnFailureListener { e -> Log.e("실패", "Error deleting document", e) }
-
-            db.collection("friends").document(user!!.getUid())
-            .get()
-            .addOnSuccessListener { result ->
-                personList.clear()
-                var fList =result["friendNames"] as MutableList<String>
-                for (name in fList) {
-                    val item = PersonModel(name)
-                    personList.add(item)
-                }
-                personList.removeAt(1)
-                fList.removeAt(1)
-                Log.e("성공", "삭제")
-                notifyDataSetChanged() // 리사이클러뷰 갱신
-            }
-            .addOnFailureListener { exception ->
-                Log.e("no data", "$exception")
-            }*/
-
-        }*/
         return CustomViewHolder(view)
     }
 
@@ -129,10 +109,83 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
             intent.putExtra("chatroomId", timeStamp)
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
+
+        holder.itemView.setOnLongClickListener(object : View.OnLongClickListener {
+            override fun onLongClick(v: View?): Boolean {
+                var dialogview = LayoutInflater.from(holder.itemView.context).inflate(R.layout.activity_delete_firend, null)
+                var builder = AlertDialog.Builder(holder.itemView.context).setView(dialogview)
+                    .setTitle("Delete Contact")
+                val alert = builder.show()
+                alert.show()
+                dialogview.findViewById<Button>(R.id.btn_delete).setOnClickListener {
+                    alert.dismiss()
+                    val friendRef = db.collection("friends").document(user!!.getUid())
+                    friendRef.get()
+                        .addOnSuccessListener { result ->
+                            personList.clear()
+                            var fList = result["friendNames"] as MutableList<String>?
+
+                            if (fList != null) {
+                                fList.removeAt(position)
+                                Log.d("test", "친구삭제")
+                            }
+                            friendRef.update("friendNames", fList)
+                            if (fList != null) {
+                                Log.d("nullTest!!!!!!!!!!!", "리스트에 친구 있음")
+                                for (name in fList) {
+                                    val item = PersonModel(name)
+                                    personList.add(item)
+                                }
+                                // 리사이클러뷰 갱신
+
+                            }
+                            notifyDataSetChanged()
+//                    friendRef.update("friendNames", fList)
+                        }
+                    dialogview.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
+                        alert.dismiss()
+                    }
+                }
+
+
+//                val friendRef = db.collection("friends").document(user!!.getUid())
+//                friendRef.get()
+//                    .addOnSuccessListener { result ->
+//                        personList.clear()
+//                        var fList = result["friendNames"] as MutableList<String>?
+//
+//                        if (fList != null) {
+//                            fList.removeAt(position)
+//                            Log.d("test", "친구삭제")
+//                        }
+//                        friendRef.update("friendNames", fList)
+//                        if (fList != null) {
+//                            Log.d("nullTest!!!!!!!!!!!", "리스트에 친구 있음")
+//                            for (name in fList) {
+//                                val item = PersonModel(name)
+//                                personList.add(item)
+//                            }
+//                            // 리사이클러뷰 갱신
+//
+//                        }
+//                        notifyDataSetChanged()
+//                        Log.d("button", "길게 클릭")
+////                    friendRef.update("friendNames", fList)
+//                    }
+                return true
+            }
+        })
+    }
+
+    override fun onBindViewHolder(holder: CustomViewHolder, position: Int, payloads: MutableList<Any>) {
+        Log.e("payload", "::$payloads")
+        if(payloads.isNotEmpty()) {
+        } else
+            super.onBindViewHolder(holder,position, payloads)
     }
 
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        /*val profile =  itemView.findViewById<ImageView>(R.id.fragmentperson_image_profile) // 이미지*/
+        val profile =  itemView.findViewById<ImageView>(R.id.fragmentperson_image_profile) // 이미지
         val friendName = itemView.findViewById<TextView>(R.id.fragmentperson_textview_name) // 이름
         /*val spoonScore = itemView.findViewById<TextView>(R.id.fragmentperson_textview_spoonscore) // 숫가락 점수*/
     }
@@ -142,6 +195,11 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
 
         db.collection("chatrooms").document(timeStamp)
                 .set(chatroomModel)
+    }
+
+    private fun refreshFragment(fragment: PersonFragment, fragmentManager: FragmentManager) {
+        var ft: FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
     }
 }
 
