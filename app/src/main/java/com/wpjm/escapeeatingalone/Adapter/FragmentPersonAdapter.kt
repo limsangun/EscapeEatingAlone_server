@@ -107,7 +107,7 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
 
 
     private fun MakeUser(userName: String, friendName: String, timeStamp: String) {
-        var chatroomModel = ChatroomModel(mutableListOf(userName, friendName), "${userName}, ${friendName}", "친구", "", timeStamp)
+        var chatroomModel = ChatroomModel(mutableListOf(userName, friendName), "${userName}, ${friendName}", "친구", "", 2,timeStamp)
 
         db.collection("chatrooms").document(timeStamp)
                 .set(chatroomModel)
