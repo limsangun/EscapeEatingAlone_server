@@ -3,6 +3,7 @@ package com.wpjm.escapeeatingalone.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
@@ -137,7 +138,8 @@ class MessageActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                             )
                         } else {
                             // chatrooms 삭제하기
-                            Log.d("MessageActivity", "참가자없음")
+                            chatRef.delete()
+                            Log.e("MessageActivity", "참가자없음")
                         }
                         finish()
                         gotoActivity(ChatActivity::class.java)
