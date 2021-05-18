@@ -106,7 +106,7 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
             var intent = Intent(holder.itemView?.context, MessageActivity::class.java)
             MakeUser(userName!!, friendName!!, timeStamp!!)
             intent.putExtra("messageTitle", friendName)
-            intent.putExtra("chatroomId", timeStamp)
+            intent.putExtra("chatroomId", friendName)
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
 
@@ -191,9 +191,9 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
     }
 
     private fun MakeUser(userName: String, friendName: String, timeStamp: String) {
-        var chatroomModel = ChatroomModel(mutableListOf(userName, friendName), "${userName}, ${friendName}", "친구", "", timeStamp)
+        var chatroomModel = ChatroomModel(mutableListOf(userName, friendName), "${userName}, ${friendName}", "친구", "", 2, friendName)
 
-        db.collection("chatrooms").document(timeStamp)
+        db.collection("chatrooms").document(friendName)
                 .set(chatroomModel)
     }
 
