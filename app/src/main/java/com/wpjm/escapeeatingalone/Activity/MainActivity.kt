@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         var name=""
         var imageUrl=""
 
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         // 가게명으로 찾기 눌렀을 때
         binding.mainActivityButtonFindname.setOnClickListener(View.OnClickListener {
-            gotoActivity(MapNaverActivity::class.java)
+            gotoActivity(MapKakaoActivity::class.java)
         })
 
         // 자유게시판 눌렀을 때
@@ -114,7 +113,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId){
             R.id.profile -> gotoActivity(MemberInitActivity::class.java)
             R.id.menu -> gotoActivity(MenuActivity::class.java)
-            R.id.restaurant -> gotoActivity(MapNaverActivity::class.java)
+            R.id.restaurant -> gotoActivity(MapKakaoActivity::class.java)
             R.id.chatting -> gotoActivity(ChatActivity::class.java)
             R.id.community -> gotoActivity(BoardActivity::class.java)
             R.id.logout ->{

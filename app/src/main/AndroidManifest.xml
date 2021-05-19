@@ -22,6 +22,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <activity android:name=".Activity.PartyDetailActivity"></activity>
@@ -32,7 +33,7 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="e04882312b2da80c5328ff0d4867b9ab" />
+            android:value="24332e6fac5132ea5dc1a303bee1707e" />
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="yidtar3sb3" />
