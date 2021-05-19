@@ -52,16 +52,32 @@ class PartyDetailActivity : AppCompatActivity() {
         binding.partyDetailActivityButtonCheck.setOnClickListener(View.OnClickListener {
             // chatrooms의 users에 해당 id가 없다면
             // chatrooms의 users숫자가 count보다 작으면
-            MakeUser(messageTitle, storeName, chatroomId)
-            var intent = Intent(this, MessageActivity::class.java)
-            intent.putExtra("chatroomId", chatroomId)
-            intent.putExtra("messageTitle", messageTitle)
-            startActivity(intent)
+            var chatroomCount:Number = 0
+            var maxCount:Number = 0
+            db.collection("chatrooms").document(chatroomId).get()
+                .addOnSuccessListener { result ->
+                    chatroomCount = result!!["count"] as Number
+
+                    db.collection("party").document(chatroomId).get()
+                        .addOnSuccessListener { result ->
+                            maxCount = result!!["count"] as Number
+
+                            if (chatroomCount.toInt() < maxCount.toInt()){
+                                MakeUser(name, messageTitle, storeName, chatroomId)
+                                var intent = Intent(this, MessageActivity::class.java)
+                                intent.putExtra("chatroomId", chatroomId)
+                                intent.putExtra("messageTitle", messageTitle)
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(this, "입장 인원 초과", Toast.LENGTH_SHORT).show()
+                                Log.e("입장 인원 초과", "입장 인원 초과")
+                            }
+                        }
+                }
         })
     }
 
-    private fun MakeUser(title: String, storeName: String, chatroomId: String) {
-//        var chatroomModel: ChatroomModel
+    private fun MakeUser(name: String, title: String, storeName: String, chatroomId: String) {
         var chatrooms = db.collection("chatrooms")
         chatrooms.get().addOnSuccessListener { documents ->
             for (document in documents) { 
@@ -72,8 +88,7 @@ class PartyDetailActivity : AppCompatActivity() {
                     Log.d("partyDetail", "이미 존재하는 회원입니다")
                 }
                 else{ // uList안에 user의 uid가 존재하지않으면
-                    uList.add(user!!.getUid())
-//                    chatroomModel = ChatroomModel(uList, title, storeName, chatroomId)
+                    uList.add(name)
                     chatrooms.document(chatroomId).update(mapOf("users" to uList))
                 }
             }
