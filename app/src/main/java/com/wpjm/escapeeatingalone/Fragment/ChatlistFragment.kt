@@ -21,7 +21,6 @@ class ChatlistFragment : Fragment() {
     private val binding get() = mBinding!!
     private var user = FirebaseAuth.getInstance().currentUser
     private var db = FirebaseFirestore.getInstance()
-
     lateinit var reyclerView: RecyclerView
     private val list = ArrayList<ChatlistModel>()
     private val adapter: FragmentChatlistAdapter = FragmentChatlistAdapter(list)

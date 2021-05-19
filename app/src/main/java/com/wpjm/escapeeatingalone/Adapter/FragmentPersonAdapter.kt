@@ -114,34 +114,34 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
             override fun onLongClick(v: View?): Boolean {
                 var dialogview = LayoutInflater.from(holder.itemView.context).inflate(R.layout.activity_delete_firend, null)
                 var builder = AlertDialog.Builder(holder.itemView.context).setView(dialogview)
-                    .setTitle("Delete Contact")
+                        .setTitle("Delete Contact")
                 val alert = builder.show()
                 alert.show()
                 dialogview.findViewById<Button>(R.id.btn_delete).setOnClickListener {
                     alert.dismiss()
                     val friendRef = db.collection("friends").document(user!!.getUid())
                     friendRef.get()
-                        .addOnSuccessListener { result ->
-                            personList.clear()
-                            var fList = result["friendNames"] as MutableList<String>?
+                            .addOnSuccessListener { result ->
+                                personList.clear()
+                                var fList = result["friendNames"] as MutableList<String>?
 
-                            if (fList != null) {
-                                fList.removeAt(position)
-                                Log.d("test", "친구삭제")
-                            }
-                            friendRef.update("friendNames", fList)
-                            if (fList != null) {
-                                Log.d("nullTest!!!!!!!!!!!", "리스트에 친구 있음")
-                                for (name in fList) {
-                                    val item = PersonModel(name)
-                                    personList.add(item)
+                                if (fList != null) {
+                                    fList.removeAt(position)
+                                    Log.d("test", "친구삭제")
                                 }
-                                // 리사이클러뷰 갱신
+                                friendRef.update("friendNames", fList)
+                                if (fList != null) {
+                                    Log.d("nullTest!!!!!!!!!!!", "리스트에 친구 있음")
+                                    for (name in fList) {
+                                        val item = PersonModel(name)
+                                        personList.add(item)
+                                    }
+                                    // 리사이클러뷰 갱신
 
-                            }
-                            notifyDataSetChanged()
+                                }
+                                notifyDataSetChanged()
 //                    friendRef.update("friendNames", fList)
-                        }
+                            }
                     dialogview.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
                         alert.dismiss()
                     }
@@ -202,4 +202,3 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
         ft.detach(fragment).attach(fragment).commit()
     }
 }
-
