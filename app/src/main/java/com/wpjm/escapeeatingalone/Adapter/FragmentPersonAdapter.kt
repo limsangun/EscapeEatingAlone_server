@@ -142,9 +142,9 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
                             notifyDataSetChanged()
 //                    friendRef.update("friendNames", fList)
                         }
-                    dialogview.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
-                        alert.dismiss()
-                    }
+                }
+                dialogview.findViewById<Button>(R.id.btn_cancela).setOnClickListener {
+                    alert.dismiss()
                 }
 
 
@@ -174,6 +174,7 @@ class FragmentPersonAdapter(val personList:ArrayList<PersonModel>) : RecyclerVie
 //                    }
                 return true
             }
+
         })
     }
 
