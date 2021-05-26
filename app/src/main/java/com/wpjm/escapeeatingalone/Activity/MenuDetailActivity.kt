@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.wpjm.escapeeatingalone.Model.Menu
 import com.wpjm.escapeeatingalone.Model.MenuDetailModel
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityMenuDetailBinding
+import javax.security.auth.callback.Callback
 
 class MenuDetailActivity : AppCompatActivity() {
     private var mBinding: ActivityMenuDetailBinding? = null
@@ -46,8 +49,11 @@ class MenuDetailActivity : AppCompatActivity() {
         binding.meniDetailActivityRecyclerView.adapter=MenuDetailAdapter(filtedMenuDetailList as ArrayList<MenuDetailModel>)
     }
 
+
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
+
 
 }
