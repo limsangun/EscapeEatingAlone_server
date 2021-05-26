@@ -32,7 +32,7 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="e04882312b2da80c5328ff0d4867b9ab" />
+            android:value="24332e6fac5132ea5dc1a303bee1707e" />
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="yidtar3sb3" />
