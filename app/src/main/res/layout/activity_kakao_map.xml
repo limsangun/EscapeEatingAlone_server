@@ -34,7 +34,7 @@
             android:layout_marginEnd="8dp"
             android:ems="10"
             android:hint="장소 입력"
-            android:inputType="textNoSuggestions"
+            android:inputType="textPersonName"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_search"
             app:layout_constraintEnd_toStartOf="@+id/btn_search"
@@ -94,5 +94,13 @@
             app:layout_constraintStart_toEndOf="@+id/btn_prevPage"
             app:layout_constraintTop_toTopOf="@+id/btn_nextPage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/currentLoc_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현재위치로 이동"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

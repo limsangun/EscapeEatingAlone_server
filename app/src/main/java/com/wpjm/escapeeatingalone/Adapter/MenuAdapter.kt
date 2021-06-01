@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.wpjm.escapeeatingalone.Adapter.ListAdapter
 import com.wpjm.escapeeatingalone.Model.Menu
 import com.wpjm.escapeeatingalone.R
 
@@ -26,16 +27,30 @@ class MenuAdapter(val menuList:ArrayList<Menu>) :RecyclerView.Adapter<MenuAdapte
     override fun getItemCount(): Int {
         return menuList.size
     }
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
+    private lateinit var itemClickListener : MenuAdapter.OnItemClickListener
 
     override fun onBindViewHolder(holder: MenuAdapter.CustomViewHolder, position: Int) {
         holder.image.setImageResource(menuList.get(position).image)
         holder.name.text=menuList.get(position).name
-
+        /*
         // 리스트 눌렀을 때
         holder.itemView.setOnClickListener {
             var intent = Intent(holder.itemView?.context, MenuDetailActivity::class.java)
             intent.putExtra("MenuType", "${holder.name.text}")
             ContextCompat.startActivity(holder.itemView.context, intent, null)
+        }
+         */
+
+
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
         }
     }
     
