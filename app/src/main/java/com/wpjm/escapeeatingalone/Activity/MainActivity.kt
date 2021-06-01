@@ -8,6 +8,7 @@ import android.util.Base64
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.google.firebase.auth.FirebaseAuth
@@ -35,7 +36,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var name=""
         var imageUrl=""
 
-
+        var x=intent.getStringExtra("x")
+        var y=intent.getStringExtra("y")
+        Log.d("x와 y","x는 ${x} y는 ${y}")
         // 기본 시작 주기
         if (user == null) { // 파이어베이스 유저가 존재하지 않으면
             gotoActivity(SignupActivity::class.java)
@@ -73,7 +76,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         binding.mainActivityButtonFindmenu.setOnClickListener(View.OnClickListener {
-            gotoActivity(MenuActivity::class.java)
+            if (x!=null &&y!=null){
+                var intent = Intent(this, MenuActivity::class.java)
+                intent.putExtra("x",x)
+                intent.putExtra("y",y)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(this, "주소를 설정해주세요.", Toast.LENGTH_SHORT).show()
+            }
+
         })
 
         // 가게명으로 찾기 눌렀을 때
@@ -90,6 +102,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.mainActivityButtonChatting.setOnClickListener(View.OnClickListener {
             gotoActivity(ChatActivity::class.java)
         })
+        binding.setAddressBtn.setOnClickListener {
+            gotoActivity(CurrentAddressActivity::class.java)
+        }
 
     }
 
