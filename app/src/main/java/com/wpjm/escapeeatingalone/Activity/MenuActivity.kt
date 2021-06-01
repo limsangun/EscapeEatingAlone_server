@@ -23,10 +23,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MenuActivity() : AppCompatActivity() {
-    companion object {
-        const val BASE_URL = "https://dapi.kakao.com/"
-        const val API_KEY = "KakaoAK 24332e6fac5132ea5dc1a303bee1707e"  // REST API 키
-    }
     private var mBinding: ActivityMenulistBinding?=null
     private val binding get() = mBinding!!
     private val ACCESS_FINE_LOCATION = 1000
@@ -53,69 +49,19 @@ class MenuActivity() : AppCompatActivity() {
         binding.rvMenu.layoutManager=LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         binding.rvMenu.setHasFixedSize(true)
         binding.rvMenu.adapter=listAdapter
+        var intent = Intent(this, MenuDetailActivity::class.java)
         listAdapter.setItemClickListener(object: MenuAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
                 Log.d("메뉴 클릭","클릭 ${menuList[position].name}")
                 var keyword=menuList[position].name
-                if (x != null && y!=null) {
-                    searchKeyword(keyword,x,y)
-                }
+                intent.putExtra("menuType",menuList[position].name)
+                intent.putExtra("x",x)
+                intent.putExtra("y",y)
+                startActivity(intent)
+
 
             }
         })
-    }
-
-    // 키워드 검색 함수
-    private fun searchKeyword(keyword: String,x:String,y:String) {
-        Log.d("searchKeyword","함수시작")
-        val retrofit = Retrofit.Builder()          // Retrofit 구성
-            .baseUrl(CurrentMapSearchActivity.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val api = retrofit.create(KakaoAPI::class.java)            // 통신 인터페이스를 객체로 생성
-
-        Log.d("call 앞","x는 ${x} y는 ${y}")
-        val call = api.getSearchMenu(CurrentMapSearchActivity.API_KEY, keyword,x,y,5000)    // 검색 조건 입력
-
-        // API 서버에 요청
-        call.enqueue(object: Callback<ResultSearchKeyword> {
-            override fun onResponse(call: Call<ResultSearchKeyword>, response: Response<ResultSearchKeyword>) {
-                // 통신 성공
-                var searchResult: ResultSearchKeyword?=response.body()
-                var menuType:String=keyword
-                if (!searchResult?.documents.isNullOrEmpty()) {
-                    listItems.clear()
-                    // 검색 결과 있음
-                    Log.d("검색결과","있음")
-                    for (document in searchResult!!.documents) {
-                        // 결과를 리사이클러 뷰에 추가
-                        val item = MenuList(document.place_name,
-                            document.road_address_name,
-                            document.address_name,
-                            menuType)
-                        listItems.add(item)
-                        Log.d("검색결과","${listItems[0].name}")
-                    }
-                    Log.d("검색결과 리스트"," 결과는 ? ${listItems[0].name}")
-                    Log.d("검색결과 리스트","${listItems[0].menuType}")
-
-                } else {
-                    // 검색 결과 없음
-                    //Toast.makeText(this, "검색 결과가 없습니다", Toast.LENGTH_SHORT).show()
-                }
-                Log.d("LocalSearch", "통신 성공")
-
-            }
-
-            override fun onFailure(call: Call<ResultSearchKeyword>, t: Throwable) {
-                // 통신 실패
-                Log.w("LocalSearch", "통신 실패: ${t.message}")
-            }
-        })
-
-        var intent = Intent(this, MenuDetailActivity::class.java)
-        intent.putExtra("resultList",listItems)
-        startActivity(intent)
     }
 
     override fun onBackPressed() {

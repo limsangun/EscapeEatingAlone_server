@@ -47,8 +47,6 @@ class CurrentMapSearchActivity : AppCompatActivity() {
     var x :Double=0.0
     var y :Double=0.0
 
-    //val menuList=listOf("한식","일식","중식","치킨","피자","분식","패스트푸드","카페")
-    val menuList=listOf("한식")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCurrentMapSearchBinding.inflate(layoutInflater)
