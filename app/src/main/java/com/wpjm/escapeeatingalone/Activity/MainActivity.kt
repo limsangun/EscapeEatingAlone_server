@@ -39,6 +39,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var x=intent.getStringExtra("x")
         var y=intent.getStringExtra("y")
 
+        if (x!=null && y!=null){
+            binding.setAddressBtn.setText("주소설정이 완료되었습니다.")
+        }
 
         Log.d("x와 y","x는 ${x} y는 ${y}")
         // 기본 시작 주기
