@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         var x=intent.getStringExtra("x")
         var y=intent.getStringExtra("y")
+
+
         Log.d("x와 y","x는 ${x} y는 ${y}")
         // 기본 시작 주기
         if (user == null) { // 파이어베이스 유저가 존재하지 않으면
@@ -120,6 +122,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         when (item.itemId){
             R.id.profile -> gotoActivity(MemberInitModify::class.java)
+            R.id.address -> gotoActivity(CurrentAddressActivity::class.java)
             R.id.menu -> gotoActivity(MenuActivity::class.java)
             R.id.restaurant -> gotoActivity(MapNaverActivity::class.java)
             R.id.chatting -> gotoActivity(ChatActivity::class.java)
