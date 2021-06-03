@@ -39,6 +39,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var x=intent.getStringExtra("x")
         var y=intent.getStringExtra("y")
 
+        //주소 설정 완료 후 text변경
+        if (x!=null && y!=null){
+            binding.setAddressBtn.setText("주소설정이 완료되었습니다.")
+        }
 
         Log.d("x와 y","x는 ${x} y는 ${y}")
         // 기본 시작 주기
