@@ -38,11 +38,10 @@ class MenuAdapter(val menuList:ArrayList<Menu>) :RecyclerView.Adapter<MenuAdapte
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
     }
-    
+
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image=itemView.findViewById<ImageView>(R.id.iv_menuImage)
         val name=itemView.findViewById<TextView>(R.id.tv_menuName)
     }
 
 }
-

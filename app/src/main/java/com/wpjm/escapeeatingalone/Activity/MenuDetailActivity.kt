@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.wpjm.escapeeatingalone.Model.MenuDetailModel
 import com.wpjm.escapeeatingalone.R
 import com.wpjm.escapeeatingalone.databinding.ActivityMenuDetailBinding
@@ -64,16 +63,6 @@ class MenuDetailActivity : AppCompatActivity() {
                 }
             }
 
-//            val menuDetailList = arrayListOf(MenuDetailModel(R.drawable.rice, elem?.getElementsByTagName("bsnsNm")?.item(0)!!.textContent, elem?.getElementsByTagName("bsnsCond")?.item(0)!!.textContent))
-//            Log.e("test2", menuDetailList[0].name)
-//
-//            val filtedMenuDetailList = menuDetailList.filter {
-//                it.type.equals(intent.getStringExtra("MenuType").toString())
-//            }
-//            binding.meniDetailActivityRecyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-//            binding.meniDetailActivityRecyclerView.setHasFixedSize(true)
-//            binding.meniDetailActivityRecyclerView.adapter=MenuDetailAdapter(filtedMenuDetailList as ArrayList<MenuDetailModel>)
-
         } catch (e: IOException) {
             e.printStackTrace()
         } catch (e: ParserConfigurationException) {
@@ -81,70 +70,6 @@ class MenuDetailActivity : AppCompatActivity() {
         } catch (e: SAXException) {
             e.printStackTrace()
         }
-
-
-
-//        val url: String =
-//            "http://apis.data.go.kr/6260000/BusanTblFnrstrnStusService/getTblFnrstrnStusInfo?serviceKey=SkzUgJzO5Ju61s661QVhT7zHnZghYrBq2kymfg8v46g%2FSFN7VcgiWR3KYtaWyjRvZhfoBRizMSz6%2FiOwK9KOtA%3D%3D&numOfRows=600&pageNo=1"
-//        val xml: Document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(url)
-//        xml.documentElement.normalize()
-//        val list: NodeList = xml.getElementsByTagName("item")
-//
-//        for (i in 0..list.length - 1) {
-//            var n: Node = list.item(i)
-//            if (n.getNodeType() == Node.ELEMENT_NODE) {
-//                val elem = n as Element
-//                val map = mutableMapOf<String, String>()
-//
-//                for (j in 0..elem.attributes.length - 1) {
-//                    map.putIfAbsent(
-//                        elem.attributes.item(j).nodeName,
-//                        elem.attributes.item(j).nodeValue
-//                    )
-//                }
-//
-//                var menuDetailList = arrayListOf(
-//                    MenuDetailModel(R.drawable.rice, elem.getElementsByTagName("bsnsNm").item(0).textContent, elem.getElementsByTagName("bsnsCond").item(0).textContent
-//                    )
-//                )
-//
-//                var filtedMenuDetailList = menuDetailList.filter {
-//                    it.type.equals(intent.getStringExtra("MenuType").toString())
-//                }
-//
-//                binding.meniDetailActivityRecyclerView.layoutManager =
-//                    LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//                binding.meniDetailActivityRecyclerView.setHasFixedSize(true)
-//                binding.meniDetailActivityRecyclerView.adapter =
-//                    MenuDetailAdapter(filtedMenuDetailList as ArrayList<MenuDetailModel>)
-//            }
-//        }
-
-
-//        var menuDetailList= arrayListOf(
-//            MenuDetailModel(R.drawable.rice, "우쭈쭈", "경성대 쭈꾸미집","한식"),
-//            MenuDetailModel(R.drawable.rice, "우쭈쭈", "경성대 쭈꾸미집","한식"),
-//            MenuDetailModel(R.drawable.rice, "미진축산", "경성대 삼겹살집", "한식"),
-//            MenuDetailModel(R.drawable.rice, "영진돼지국밥", "경성대 돼지국밥", "한식"),
-//            MenuDetailModel(R.drawable.rice, "차이나타운", "경성대 중국집", "중식"),
-//            MenuDetailModel(R.drawable.rice, "겐로쿠", "경성대 우동", "일식"),
-//            MenuDetailModel(R.drawable.rice, "노랑통닭", "경성대 치킨", "치킨"),
-//            MenuDetailModel(R.drawable.rice, "미스터피자", "경성대 피자", "피자"),
-//            MenuDetailModel(R.drawable.rice, "멕시카나", "경성대 치킨", "치킨"),
-//            MenuDetailModel(R.drawable.rice, "보리밭", "경성대 밥골", "한식"),
-//            MenuDetailModel(R.drawable.rice, "청년다방", "경성대 분식", "분식"),
-//            MenuDetailModel(R.drawable.rice, "맥도날드", "경성대 맥도널드", "패스트푸드"),
-//            MenuDetailModel(R.drawable.rice, "스타벅스", "경성대 스타벅스", "카페"),
-//            MenuDetailModel(R.drawable.rice, "동대문엽기떡볶이", "경성대 엽떡", "패스트푸드")
-//        )
-//
-//        var filtedMenuDetailList = menuDetailList.filter {
-//            it.type.equals(intent.getStringExtra("MenuType").toString())
-//        }
-//
-//        binding.meniDetailActivityRecyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-//        binding.meniDetailActivityRecyclerView.setHasFixedSize(true)
-//        binding.meniDetailActivityRecyclerView.adapter=MenuDetailAdapter(filtedMenuDetailList as ArrayList<MenuDetailModel>)
     }
 
     override fun onBackPressed() {

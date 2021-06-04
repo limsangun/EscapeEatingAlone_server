@@ -21,7 +21,7 @@ class MapKakaoActivity : AppCompatActivity() {
         val mapView = MapView(this)
 
         val mapViewContainer = binding.mapView
-        mapViewContainer.addView(mapView)
+        //mapViewContainer.addView(mapView)
 
     }
 

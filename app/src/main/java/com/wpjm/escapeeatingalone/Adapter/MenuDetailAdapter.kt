@@ -35,8 +35,6 @@ class MenuDetailAdapter(val menuDetailList:ArrayList<MenuDetailModel>) :Recycler
         }
     }
 
-
-
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val logo=itemView.findViewById<ImageView>(R.id.menuDetail_imageView_logo)
         val name=itemView.findViewById<TextView>(R.id.menuDetail_textView_menuName)

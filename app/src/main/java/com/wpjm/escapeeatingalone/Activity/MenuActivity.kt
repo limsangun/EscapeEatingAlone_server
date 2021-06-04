@@ -21,14 +21,14 @@ class MenuActivity() : AppCompatActivity() {
         setContentView(binding.root)
 
         var menuList= arrayListOf(
-                Menu("한식",R.drawable.rice),
-                Menu("일식",R.drawable.sushi),
-                Menu("중식",R.drawable.chinafood),
-                Menu("치킨",R.drawable.chicken),
-                Menu("피자",R.drawable.pizza),
-                Menu("분식",R.drawable.fishcake),
-                Menu("패스트푸드",R.drawable.fastfood),
-                Menu("카페",R.drawable.cupcake)
+            Menu("한식",R.drawable.rice),
+            Menu("일식",R.drawable.sushi),
+            Menu("중식",R.drawable.chinafood),
+            Menu("치킨",R.drawable.chicken),
+            Menu("피자",R.drawable.pizza),
+            Menu("분식",R.drawable.fishcake),
+            Menu("패스트푸드",R.drawable.fastfood),
+            Menu("카페",R.drawable.cupcake)
         )
 
         binding.rvMenu.layoutManager=LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
