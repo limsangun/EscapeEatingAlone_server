@@ -25,7 +25,7 @@ class MenuDetailAdapter(val menuDetailList:ArrayList<MenuDetailModel>) :Recycler
     override fun onBindViewHolder(holder: MenuDetailAdapter.CustomViewHolder, position: Int) {
         holder.logo.setImageResource(menuDetailList.get(position).logo)
         holder.name.text=menuDetailList.get(position).name
-        holder.explanation.text=menuDetailList.get(position).explanation
+        //holder.explanation.text=menuDetailList.get(position).explanation
 
         // 리스트 눌렀을 때
         holder.itemView.setOnClickListener {
@@ -34,6 +34,8 @@ class MenuDetailAdapter(val menuDetailList:ArrayList<MenuDetailModel>) :Recycler
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
     }
+
+
 
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val logo=itemView.findViewById<ImageView>(R.id.menuDetail_imageView_logo)

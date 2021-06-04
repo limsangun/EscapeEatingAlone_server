@@ -23,6 +23,7 @@ allprojects {
         maven{url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
         // 네이버 지도 저장소
         maven {url 'https://naver.jfrog.io/artifactory/maven/'}
+        maven {url 'http://apis.data.go.kr/6260000/BusanTblFnrstrnStusService/getTblFnrstrnStusInfo?serviceKey=SkzUgJzO5Ju61s661QVhT7zHnZghYrBq2kymfg8v46g%2FSFN7VcgiWR3KYtaWyjRvZhfoBRizMSz6%2FiOwK9KOtA%3D%3D&numOfRows=600&pageNo=1/'}
     }
 }
 
